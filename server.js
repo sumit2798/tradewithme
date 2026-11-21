@@ -58,13 +58,13 @@ const server = http.createServer((req, res) => {
 
   // REST API Endpoints
   if (pathname === '/api/radar' && req.method === 'GET') {
-    const radar = engine.generateRadar('08:00');
+    const radar = engine.generateRadar('08:00', false);
     sendJSON(res, radar);
     return;
   }
 
   if (pathname === '/api/refresh' && req.method === 'POST') {
-    const radar = engine.generateRadar('manual');
+    const radar = engine.generateRadar('manual', true);
     sendJSON(res, radar);
     return;
   }

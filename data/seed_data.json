@@ -1,6 +1,6 @@
 {
-  "reference_date": "2026-11-12",
-  "reference_time_ist": "08:00 IST",
+  "reference_date": "2026-11-21",
+  "reference_time_ist": "14:45 IST",
   "stocks": [
     {
       "name": "Hindustan Aeronautics Limited",
@@ -13,8 +13,8 @@
       "last_qtr_weak": 0,
       "turnaround_evidence": null,
       "calendar": {
-        "results_date": "2026-11-14",
-        "results_date_formatted": "14 Nov 2026",
+        "results_date": "2026-11-24",
+        "results_date_formatted": "24 Nov 2026",
         "verified_by": "Exchange filing",
         "source_filing_ref": "NSE/BSE Corporate Filings intimation ref: HAL/SEC/BM/Q2/2026",
         "has_reported": 0
@@ -50,8 +50,8 @@
       "last_qtr_weak": 0,
       "turnaround_evidence": null,
       "calendar": {
-        "results_date": "2026-11-14",
-        "results_date_formatted": "14 Nov 2026",
+        "results_date": "2026-11-24",
+        "results_date_formatted": "24 Nov 2026",
         "verified_by": "Exchange filing",
         "source_filing_ref": "BSE Intimation No. 533398 / NSE Corporate Announcement Form 29",
         "has_reported": 0
@@ -87,8 +87,8 @@
       "last_qtr_weak": 0,
       "turnaround_evidence": null,
       "calendar": {
-        "results_date": "2026-11-13",
-        "results_date_formatted": "13 Nov 2026",
+        "results_date": "2026-11-23",
+        "results_date_formatted": "23 Nov 2026",
         "verified_by": "Exchange filing",
         "source_filing_ref": "NSE/BSE Corporate Filing Section 30 Intimation",
         "has_reported": 0
@@ -124,8 +124,8 @@
       "last_qtr_weak": 0,
       "turnaround_evidence": null,
       "calendar": {
-        "results_date": "2026-11-13",
-        "results_date_formatted": "13 Nov 2026",
+        "results_date": "2026-11-23",
+        "results_date_formatted": "23 Nov 2026",
         "verified_by": "Exchange filing",
         "source_filing_ref": "BSE Ann. Ref 505200 / NSE EICHERMOT Board Meeting Intimation",
         "has_reported": 0
@@ -161,8 +161,8 @@
       "last_qtr_weak": 0,
       "turnaround_evidence": null,
       "calendar": {
-        "results_date": "2026-11-14",
-        "results_date_formatted": "14 Nov 2026",
+        "results_date": "2026-11-25",
+        "results_date_formatted": "25 Nov 2026",
         "verified_by": "Exchange filing",
         "source_filing_ref": "NSE/BSE Corporate Filings Notice of Board Meeting",
         "has_reported": 0
@@ -198,8 +198,8 @@
       "last_qtr_weak": 0,
       "turnaround_evidence": null,
       "calendar": {
-        "results_date": "2026-11-13",
-        "results_date_formatted": "13 Nov 2026",
+        "results_date": "2026-11-23",
+        "results_date_formatted": "23 Nov 2026",
         "verified_by": "Multi-calendar",
         "source_filing_ref": "Verified across NSE filing and Moneycontrol/Trendlyne verified calendar",
         "has_reported": 0
@@ -219,7 +219,7 @@
         "key_number": "Rs. 1,420 cr est. quarterly revenue (+28% YoY est.)",
         "catalyst_or_risk": "Seasonal working capital inventory build ahead of upcoming summer distribution channels.",
         "one_line_summary": "Component manufacturing scale in RAC and electronics assemblies.",
-        "event_invalidation": "Operating profit margins missing estimates by > 120 bps due to inability to pass on copper/aluminum raw material spikes.",
+        "event_invalidation": "Operating profit margins missing estimates by > 120 bps due to input cost spikes.",
         "volatility_buffer": "±5.0% to ±6.5% historical 1-day earnings implied move",
         "technical_anchor": "Structural invalidation upon breakdown of the rising channel trendline."
       }
@@ -235,10 +235,10 @@
       "last_qtr_weak": 0,
       "turnaround_evidence": null,
       "calendar": {
-        "results_date": "2026-11-13",
-        "results_date_formatted": "13 Nov 2026",
+        "results_date": "2026-11-23",
+        "results_date_formatted": "23 Nov 2026",
         "verified_by": "Exchange filing",
-        "source_filing_ref": "NSE/BSE Corporate Filings intimation dated Oct 24, 2026",
+        "source_filing_ref": "NSE/BSE Corporate Filings intimation dated Nov 08, 2026",
         "has_reported": 0
       },
       "evaluation": {
@@ -272,8 +272,8 @@
       "last_qtr_weak": 0,
       "turnaround_evidence": null,
       "calendar": {
-        "results_date": "2026-11-13",
-        "results_date_formatted": "13 Nov 2026",
+        "results_date": "2026-11-23",
+        "results_date_formatted": "23 Nov 2026",
         "verified_by": "Exchange filing",
         "source_filing_ref": "BSE Scrip 532940 Intimation under Regulation 29",
         "has_reported": 0
@@ -309,8 +309,8 @@
       "last_qtr_weak": 1,
       "turnaround_evidence": "Maamba Collieries project loan debt retirement milestone achieved, normalized power plant availability factor post-overhaul, and verified regular sovereign cash remittances confirmed in exchange disclosures.",
       "calendar": {
-        "results_date": "2026-11-12",
-        "results_date_formatted": "12 Nov 2026",
+        "results_date": "2026-11-23",
+        "results_date_formatted": "23 Nov 2026",
         "verified_by": "Exchange filing",
         "source_filing_ref": "NSE/BSE Corporate Filings Ref: NAVA/CORP/BM/Q2",
         "has_reported": 0
@@ -346,8 +346,8 @@
       "last_qtr_weak": 1,
       "turnaround_evidence": null,
       "calendar": {
-        "results_date": "2026-11-12",
-        "results_date_formatted": "12 Nov 2026",
+        "results_date": "2026-11-23",
+        "results_date_formatted": "23 Nov 2026",
         "verified_by": "Exchange filing",
         "source_filing_ref": "BSE Announcement No. 532939",
         "has_reported": 0
@@ -383,8 +383,8 @@
       "last_qtr_weak": 1,
       "turnaround_evidence": null,
       "calendar": {
-        "results_date": "2026-11-12",
-        "results_date_formatted": "12 Nov 2026",
+        "results_date": "2026-11-23",
+        "results_date_formatted": "23 Nov 2026",
         "verified_by": "Exchange filing",
         "source_filing_ref": "NSE/BSE Corporate Filings Intimation",
         "has_reported": 0
@@ -420,8 +420,8 @@
       "last_qtr_weak": 0,
       "turnaround_evidence": null,
       "calendar": {
-        "results_date": "2026-11-12",
-        "results_date_formatted": "12 Nov 2026",
+        "results_date": "2026-11-23",
+        "results_date_formatted": "23 Nov 2026",
         "verified_by": "Exchange filing",
         "source_filing_ref": "BSE Announcement",
         "has_reported": 0
@@ -457,8 +457,8 @@
       "last_qtr_weak": 0,
       "turnaround_evidence": null,
       "calendar": {
-        "results_date": "2026-11-13",
-        "results_date_formatted": "13 Nov 2026",
+        "results_date": "2026-11-23",
+        "results_date_formatted": "23 Nov 2026",
         "verified_by": "Exchange filing",
         "source_filing_ref": "NSE/BSE Filings",
         "has_reported": 0

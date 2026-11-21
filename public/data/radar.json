@@ -1,7 +1,7 @@
 {
   "meta": {
-    "last_updated": "12 Nov 2026, 08:00 IST",
-    "verified_on": "12 Nov 2026",
+    "last_updated": "21 Nov 2026, 14:49 IST",
+    "verified_on": "21 Nov 2026",
     "run_type": "08:00",
     "rule_version": "NSE/BSE Main Board Radar 2.5"
   },
@@ -9,8 +9,8 @@
     "A": [
       {
         "name": "Hindustan Aeronautics Limited",
-        "results_date_formatted": "14 Nov 2026",
-        "results_date": "2026-11-14",
+        "results_date_formatted": "24 Nov 2026",
+        "results_date": "2026-11-24",
         "sector": "Aerospace & Defence",
         "mcap_list": "List 1",
         "verified_by": "Exchange filing",
@@ -24,8 +24,8 @@
       },
       {
         "name": "Muthoot Finance Limited",
-        "results_date_formatted": "14 Nov 2026",
-        "results_date": "2026-11-14",
+        "results_date_formatted": "24 Nov 2026",
+        "results_date": "2026-11-24",
         "sector": "Non-Banking Financials (NBFC)",
         "mcap_list": "List 1",
         "verified_by": "Exchange filing",
@@ -39,8 +39,8 @@
       },
       {
         "name": "Jupiter Wagons Limited",
-        "results_date_formatted": "13 Nov 2026",
-        "results_date": "2026-11-13",
+        "results_date_formatted": "23 Nov 2026",
+        "results_date": "2026-11-23",
         "sector": "Railways & Capital Goods",
         "mcap_list": "List 1",
         "verified_by": "Exchange filing",
@@ -56,8 +56,8 @@
     "B": [
       {
         "name": "Eicher Motors Limited",
-        "results_date_formatted": "13 Nov 2026",
-        "results_date": "2026-11-13",
+        "results_date_formatted": "23 Nov 2026",
+        "results_date": "2026-11-23",
         "sector": "Automobiles",
         "mcap_list": "List 1",
         "verified_by": "Exchange filing",
@@ -71,8 +71,8 @@
       },
       {
         "name": "Alkem Laboratories Limited",
-        "results_date_formatted": "14 Nov 2026",
-        "results_date": "2026-11-14",
+        "results_date_formatted": "25 Nov 2026",
+        "results_date": "2026-11-25",
         "sector": "Pharmaceuticals",
         "mcap_list": "List 1",
         "verified_by": "Exchange filing",
@@ -86,8 +86,8 @@
       },
       {
         "name": "Amber Enterprises India Limited",
-        "results_date_formatted": "13 Nov 2026",
-        "results_date": "2026-11-13",
+        "results_date_formatted": "23 Nov 2026",
+        "results_date": "2026-11-23",
         "sector": "Consumer Electricals & Electronics",
         "mcap_list": "List 1",
         "verified_by": "Multi-calendar",
@@ -95,14 +95,14 @@
         "key_number": "Rs. 1,420 cr est. quarterly revenue (+28% YoY est.)",
         "catalyst_or_risk": "Seasonal working capital inventory build ahead of upcoming summer distribution channels.",
         "one_line_summary": "Component manufacturing scale in RAC and electronics assemblies.",
-        "event_invalidation": "Operating profit margins missing estimates by > 120 bps due to inability to pass on copper/aluminum raw material spikes.",
+        "event_invalidation": "Operating profit margins missing estimates by > 120 bps due to input cost spikes.",
         "volatility_buffer": "±5.0% to ±6.5% historical 1-day earnings implied move",
         "technical_anchor": "Structural invalidation upon breakdown of the rising channel trendline."
       },
       {
         "name": "Grasim Industries Limited",
-        "results_date_formatted": "13 Nov 2026",
-        "results_date": "2026-11-13",
+        "results_date_formatted": "23 Nov 2026",
+        "results_date": "2026-11-23",
         "sector": "Diversified Materials",
         "mcap_list": "List 1",
         "verified_by": "Exchange filing",
@@ -116,8 +116,8 @@
       },
       {
         "name": "J. Kumar Infraprojects Limited",
-        "results_date_formatted": "13 Nov 2026",
-        "results_date": "2026-11-13",
+        "results_date_formatted": "23 Nov 2026",
+        "results_date": "2026-11-23",
         "sector": "Infrastructure & Construction",
         "mcap_list": "List 2",
         "verified_by": "Exchange filing",
@@ -133,8 +133,8 @@
     "C": [
       {
         "name": "Jupiter Wagons Limited",
-        "results_date_formatted": "13 Nov 2026",
-        "results_date": "2026-11-13",
+        "results_date_formatted": "23 Nov 2026",
+        "results_date": "2026-11-23",
         "sector": "Railways & Capital Goods",
         "mcap_list": "List 1",
         "verified_by": "Exchange filing",
@@ -148,8 +148,8 @@
       },
       {
         "name": "Eicher Motors Limited",
-        "results_date_formatted": "13 Nov 2026",
-        "results_date": "2026-11-13",
+        "results_date_formatted": "23 Nov 2026",
+        "results_date": "2026-11-23",
         "sector": "Automobiles",
         "mcap_list": "List 1",
         "verified_by": "Exchange filing",
@@ -163,8 +163,8 @@
       },
       {
         "name": "Amber Enterprises India Limited",
-        "results_date_formatted": "13 Nov 2026",
-        "results_date": "2026-11-13",
+        "results_date_formatted": "23 Nov 2026",
+        "results_date": "2026-11-23",
         "sector": "Consumer Electricals & Electronics",
         "mcap_list": "List 1",
         "verified_by": "Multi-calendar",
@@ -172,14 +172,14 @@
         "key_number": "Rs. 1,420 cr est. quarterly revenue (+28% YoY est.)",
         "catalyst_or_risk": "Seasonal working capital inventory build ahead of upcoming summer distribution channels.",
         "one_line_summary": "Component manufacturing scale in RAC and electronics assemblies.",
-        "event_invalidation": "Operating profit margins missing estimates by > 120 bps due to inability to pass on copper/aluminum raw material spikes.",
+        "event_invalidation": "Operating profit margins missing estimates by > 120 bps due to input cost spikes.",
         "volatility_buffer": "±5.0% to ±6.5% historical 1-day earnings implied move",
         "technical_anchor": "Structural invalidation upon breakdown of the rising channel trendline."
       },
       {
         "name": "Grasim Industries Limited",
-        "results_date_formatted": "13 Nov 2026",
-        "results_date": "2026-11-13",
+        "results_date_formatted": "23 Nov 2026",
+        "results_date": "2026-11-23",
         "sector": "Diversified Materials",
         "mcap_list": "List 1",
         "verified_by": "Exchange filing",
@@ -193,8 +193,8 @@
       },
       {
         "name": "J. Kumar Infraprojects Limited",
-        "results_date_formatted": "13 Nov 2026",
-        "results_date": "2026-11-13",
+        "results_date_formatted": "23 Nov 2026",
+        "results_date": "2026-11-23",
         "sector": "Infrastructure & Construction",
         "mcap_list": "List 2",
         "verified_by": "Exchange filing",
@@ -205,13 +205,58 @@
         "event_invalidation": "Quarterly revenue execution falling below Rs. 1,180 cr or order backlog depleting without fresh L1 announcements.",
         "volatility_buffer": "±4.5% to ±6.0% historical 1-day earnings implied move",
         "technical_anchor": "Structural invalidation if daily close breaks under the 50-day moving average support anchor."
+      },
+      {
+        "name": "Nava Limited",
+        "results_date_formatted": "23 Nov 2026",
+        "results_date": "2026-11-23",
+        "sector": "Power & Metals",
+        "mcap_list": "List 2",
+        "verified_by": "Exchange filing",
+        "reason_qualitative": "Operational recovery following plant maintenance overhaul, with verified sovereign utility cash remittances and domestic ferro-alloy smelter capacity restoration.",
+        "key_number": "Rs. 310 cr est. operational EBITDA (+24% QoQ recovery est.)",
+        "catalyst_or_risk": "Currency repatriation regulations and thermal coal logistics costs.",
+        "one_line_summary": "Plant overhaul completed with sovereign utility debt settlement milestones underway.",
+        "event_invalidation": "Halt or delay in sovereign utility cash transfers or EBITDA recovery coming in under Rs. 270 cr.",
+        "volatility_buffer": "±6.0% to ±8.5% historical 1-day earnings implied move",
+        "technical_anchor": "Structural invalidation upon loss of the multi-week base low."
+      },
+      {
+        "name": "Reliance Power Limited",
+        "results_date_formatted": "23 Nov 2026",
+        "results_date": "2026-11-23",
+        "sector": "Power Generation",
+        "mcap_list": "List 2",
+        "verified_by": "Exchange filing",
+        "reason_qualitative": "Debt reduction efforts underway, but ongoing operational losses in standalone utilities.",
+        "key_number": "Rs. -97.8 cr net loss in latest quarter",
+        "catalyst_or_risk": "Ongoing debt restructuring and legal arbitration settlements.",
+        "one_line_summary": "Excluded due to quarterly net loss.",
+        "event_invalidation": null,
+        "volatility_buffer": null,
+        "technical_anchor": null
+      },
+      {
+        "name": "Vodafone Idea Limited",
+        "results_date_formatted": "23 Nov 2026",
+        "results_date": "2026-11-23",
+        "sector": "Telecommunications",
+        "mcap_list": "List 1",
+        "verified_by": "Exchange filing",
+        "reason_qualitative": "4G/5G vendor equipment capex announced, but substantial negative cash flows and debt overhang persist.",
+        "key_number": "Rs. -6,432 cr net loss in latest quarter",
+        "catalyst_or_risk": "Bank debt tie-ups and regulatory AGR liability relief hearings.",
+        "one_line_summary": "Excluded due to heavy ongoing net losses.",
+        "event_invalidation": null,
+        "volatility_buffer": null,
+        "technical_anchor": null
       }
     ],
     "D": [
       {
         "name": "Nava Limited",
-        "results_date_formatted": "12 Nov 2026",
-        "results_date": "2026-11-12",
+        "results_date_formatted": "23 Nov 2026",
+        "results_date": "2026-11-23",
         "sector": "Power & Metals",
         "mcap_list": "List 2",
         "verified_by": "Exchange filing",
@@ -228,19 +273,18 @@
   },
   "one_week_overview": [
     {
-      "date": "2026-11-12",
-      "dayName": "Thursday (Today)",
-      "items": [
-        {
-          "name": "Nava Limited",
-          "tag": "D – Turnaround · Risky",
-          "one_line_reason": "Plant overhaul completed with sovereign utility debt settlement milestones underway."
-        }
-      ]
+      "date": "2026-11-21",
+      "dayName": "Saturday (Today)",
+      "items": []
     },
     {
-      "date": "2026-11-13",
-      "dayName": "Friday (Tomorrow)",
+      "date": "2026-11-22",
+      "dayName": "Sunday (Tomorrow)",
+      "items": []
+    },
+    {
+      "date": "2026-11-23",
+      "dayName": "Monday",
       "items": [
         {
           "name": "Jupiter Wagons Limited",
@@ -266,12 +310,17 @@
           "name": "J. Kumar Infraprojects Limited",
           "tag": "B – Decent Positive",
           "one_line_reason": "Metro and civil infrastructure execution with healthy order-book-to-bill visibility."
+        },
+        {
+          "name": "Nava Limited",
+          "tag": "D – Turnaround · Risky",
+          "one_line_reason": "Plant overhaul completed with sovereign utility debt settlement milestones underway."
         }
       ]
     },
     {
-      "date": "2026-11-14",
-      "dayName": "Saturday",
+      "date": "2026-11-24",
+      "dayName": "Tuesday",
       "items": [
         {
           "name": "Hindustan Aeronautics Limited",
@@ -282,7 +331,13 @@
           "name": "Muthoot Finance Limited",
           "tag": "A – Very Positive",
           "one_line_reason": "Gold financing expansion backed by elevated collateral values and steady branch productivity."
-        },
+        }
+      ]
+    },
+    {
+      "date": "2026-11-25",
+      "dayName": "Wednesday",
+      "items": [
         {
           "name": "Alkem Laboratories Limited",
           "tag": "B – Decent Positive",
@@ -291,28 +346,18 @@
       ]
     },
     {
-      "date": "2026-11-15",
-      "dayName": "Sunday",
-      "items": []
-    },
-    {
-      "date": "2026-11-16",
-      "dayName": "Monday",
-      "items": []
-    },
-    {
-      "date": "2026-11-17",
-      "dayName": "Tuesday",
-      "items": []
-    },
-    {
-      "date": "2026-11-18",
-      "dayName": "Wednesday",
-      "items": []
-    },
-    {
-      "date": "2026-11-19",
+      "date": "2026-11-26",
       "dayName": "Thursday",
+      "items": []
+    },
+    {
+      "date": "2026-11-27",
+      "dayName": "Friday",
+      "items": []
+    },
+    {
+      "date": "2026-11-28",
+      "dayName": "Saturday",
       "items": []
     }
   ],

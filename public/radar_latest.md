@@ -1,6 +1,6 @@
 # Pre-Results Radar (NSE/BSE Main Board)
-**Last Updated**: 12 Nov 2026, 08:00 IST
-**Verified on**: 12 Nov 2026
+**Last Updated**: 21 Nov 2026, 14:49 IST
+**Verified on**: 21 Nov 2026
 
 > Absolute Rules Applied: No prices. No tickers. No internal scores. No buy/sell recommendations. Empty sections remain unpadded.
 
@@ -8,7 +8,7 @@
 *High internal score backed by consistent filings, strong revenue/profit growth, and high delivery run-rate.*
 
 **Hindustan Aeronautics Limited**  
-Results date: 14 Nov 2026  
+Results date: 24 Nov 2026  
 [Exchange filing] [List 1]  
 - High execution velocity across LCA Tejas Mk1A deliveries, expanding domestic MRO share, and multi-year order backlog exceeding Rs. 94,000 cr.  
 - Rs. 1,480 cr est. consolidated PAT (+21% YoY est.)  
@@ -17,7 +17,7 @@ Results date: 14 Nov 2026
 - Event Implied Volatility: ±4.2% to ±5.5% historical 1-day earnings implied move  
 
 **Muthoot Finance Limited**  
-Results date: 14 Nov 2026  
+Results date: 24 Nov 2026  
 [Exchange filing] [List 1]  
 - Favorable prevailing gold prices expanding loan-to-value safety buffer and driving double-digit loan book disbursement expansion across rural and semi-urban hubs.  
 - Rs. 1,290 cr est. consolidated net profit (+19% YoY est.)  
@@ -26,7 +26,7 @@ Results date: 14 Nov 2026
 - Event Implied Volatility: ±3.8% to ±4.8% historical 1-day earnings implied move  
 
 **Jupiter Wagons Limited**  
-Results date: 13 Nov 2026  
+Results date: 23 Nov 2026  
 [Exchange filing] [List 1]  
 - Surging railway freight wagon delivery run-rate, backward integration into brake assemblies, and fast-growing electric commercial vehicle body division.  
 - Rs. 985 cr est. operational revenue (+31% YoY est.)  
@@ -38,7 +38,7 @@ Results date: 13 Nov 2026
 *Decent positive business updates, stable margin expectations, and steady volume performance.*
 
 **Eicher Motors Limited**  
-Results date: 13 Nov 2026  
+Results date: 23 Nov 2026  
 [Exchange filing] [List 1]  
 - Resilient middleweight motorcycle market leadership with festive volume traction in updated Classic 350 lineup and healthy commercial vehicle joint-venture operating margins.  
 - Rs. 1,120 cr est. consolidated PAT (+10.5% YoY est.)  
@@ -47,7 +47,7 @@ Results date: 13 Nov 2026
 - Event Implied Volatility: ±3.5% to ±4.5% historical 1-day earnings implied move  
 
 **Alkem Laboratories Limited**  
-Results date: 14 Nov 2026  
+Results date: 25 Nov 2026  
 [Exchange filing] [List 1]  
 - Strong acute segment dominance in domestic anti-infective formulations paired with stabilizing generic pricing in the US oral solid portfolio.  
 - Rs. 595 cr est. net profit (+13% YoY est.)  
@@ -56,16 +56,16 @@ Results date: 14 Nov 2026
 - Event Implied Volatility: ±3.2% to ±4.2% historical 1-day earnings implied move  
 
 **Amber Enterprises India Limited**  
-Results date: 13 Nov 2026  
+Results date: 23 Nov 2026  
 [Multi-calendar] [List 1]  
 - Contract manufacturing scale in room air conditioning units and high-speed PCB assembly expansion under central electronics PLI programs.  
 - Rs. 1,420 cr est. quarterly revenue (+28% YoY est.)  
 - Seasonal working capital inventory build ahead of upcoming summer distribution channels.  
-- Invalidation Trigger: Operating profit margins missing estimates by > 120 bps due to inability to pass on copper/aluminum raw material spikes.  
+- Invalidation Trigger: Operating profit margins missing estimates by > 120 bps due to input cost spikes.  
 - Event Implied Volatility: ±5.0% to ±6.5% historical 1-day earnings implied move  
 
 **Grasim Industries Limited**  
-Results date: 13 Nov 2026  
+Results date: 23 Nov 2026  
 [Exchange filing] [List 1]  
 - Stable operating EBITDA in viscose staple fiber and specialty caustic chemicals offsetting initial gestation marketing spend in decorative paints.  
 - Rs. 4,150 cr est. standalone revenue (+8% YoY est.)  
@@ -74,7 +74,7 @@ Results date: 13 Nov 2026
 - Event Implied Volatility: ±3.0% to ±4.0% historical 1-day earnings implied move  
 
 **J. Kumar Infraprojects Limited**  
-Results date: 13 Nov 2026  
+Results date: 23 Nov 2026  
 [Exchange filing] [List 2]  
 - High execution velocity across urban transit flyovers, elevated metro corridors, and water transmission packages with order backlog over 3.2x trailing billings.  
 - Rs. 1,310 cr est. quarterly revenue (+14% YoY est.)  
@@ -86,7 +86,7 @@ Results date: 13 Nov 2026
 *All verified main-board names reporting the next trading day.*
 
 **Jupiter Wagons Limited**  
-Results date: 13 Nov 2026  
+Results date: 23 Nov 2026  
 [Exchange filing] [List 1]  
 - Surging railway freight wagon delivery run-rate, backward integration into brake assemblies, and fast-growing electric commercial vehicle body division.  
 - Rs. 985 cr est. operational revenue (+31% YoY est.)  
@@ -95,7 +95,7 @@ Results date: 13 Nov 2026
 - Event Implied Volatility: ±5.5% to ±7.0% historical 1-day earnings implied move  
 
 **Eicher Motors Limited**  
-Results date: 13 Nov 2026  
+Results date: 23 Nov 2026  
 [Exchange filing] [List 1]  
 - Resilient middleweight motorcycle market leadership with festive volume traction in updated Classic 350 lineup and healthy commercial vehicle joint-venture operating margins.  
 - Rs. 1,120 cr est. consolidated PAT (+10.5% YoY est.)  
@@ -104,16 +104,16 @@ Results date: 13 Nov 2026
 - Event Implied Volatility: ±3.5% to ±4.5% historical 1-day earnings implied move  
 
 **Amber Enterprises India Limited**  
-Results date: 13 Nov 2026  
+Results date: 23 Nov 2026  
 [Multi-calendar] [List 1]  
 - Contract manufacturing scale in room air conditioning units and high-speed PCB assembly expansion under central electronics PLI programs.  
 - Rs. 1,420 cr est. quarterly revenue (+28% YoY est.)  
 - Seasonal working capital inventory build ahead of upcoming summer distribution channels.  
-- Invalidation Trigger: Operating profit margins missing estimates by > 120 bps due to inability to pass on copper/aluminum raw material spikes.  
+- Invalidation Trigger: Operating profit margins missing estimates by > 120 bps due to input cost spikes.  
 - Event Implied Volatility: ±5.0% to ±6.5% historical 1-day earnings implied move  
 
 **Grasim Industries Limited**  
-Results date: 13 Nov 2026  
+Results date: 23 Nov 2026  
 [Exchange filing] [List 1]  
 - Stable operating EBITDA in viscose staple fiber and specialty caustic chemicals offsetting initial gestation marketing spend in decorative paints.  
 - Rs. 4,150 cr est. standalone revenue (+8% YoY est.)  
@@ -122,7 +122,7 @@ Results date: 13 Nov 2026
 - Event Implied Volatility: ±3.0% to ±4.0% historical 1-day earnings implied move  
 
 **J. Kumar Infraprojects Limited**  
-Results date: 13 Nov 2026  
+Results date: 23 Nov 2026  
 [Exchange filing] [List 2]  
 - High execution velocity across urban transit flyovers, elevated metro corridors, and water transmission packages with order backlog over 3.2x trailing billings.  
 - Rs. 1,310 cr est. quarterly revenue (+14% YoY est.)  
@@ -130,11 +130,34 @@ Results date: 13 Nov 2026
 - Invalidation Trigger: Quarterly revenue execution falling below Rs. 1,180 cr or order backlog depleting without fresh L1 announcements.  
 - Event Implied Volatility: ±4.5% to ±6.0% historical 1-day earnings implied move  
 
+**Nava Limited**  
+Results date: 23 Nov 2026  
+[Exchange filing] [List 2]  
+- Operational recovery following plant maintenance overhaul, with verified sovereign utility cash remittances and domestic ferro-alloy smelter capacity restoration.  
+- Rs. 310 cr est. operational EBITDA (+24% QoQ recovery est.)  
+- Currency repatriation regulations and thermal coal logistics costs.  
+- Invalidation Trigger: Halt or delay in sovereign utility cash transfers or EBITDA recovery coming in under Rs. 270 cr.  
+- Event Implied Volatility: ±6.0% to ±8.5% historical 1-day earnings implied move  
+
+**Reliance Power Limited**  
+Results date: 23 Nov 2026  
+[Exchange filing] [List 2]  
+- Debt reduction efforts underway, but ongoing operational losses in standalone utilities.  
+- Rs. -97.8 cr net loss in latest quarter  
+- Ongoing debt restructuring and legal arbitration settlements.  
+
+**Vodafone Idea Limited**  
+Results date: 23 Nov 2026  
+[Exchange filing] [List 1]  
+- 4G/5G vendor equipment capex announced, but substantial negative cash flows and debt overhang persist.  
+- Rs. -6,432 cr net loss in latest quarter  
+- Bank debt tie-ups and regulatory AGR liability relief hearings.  
+
 ## Category D – Turnaround · Risky
 *Weak previous quarter with hard, verifiable recovery evidence only.*
 
 **Nava Limited**  
-Results date: 12 Nov 2026  
+Results date: 23 Nov 2026  
 [Exchange filing] [List 2]  
 - Operational recovery following plant maintenance overhaul, with verified sovereign utility cash remittances and domestic ferro-alloy smelter capacity restoration.  
 - Rs. 310 cr est. operational EBITDA (+24% QoQ recovery est.)  
@@ -144,34 +167,34 @@ Results date: 12 Nov 2026
 
 ## One-Week Overview by Day
 
-### Thursday (Today) (2026-11-12)
-- **Nava Limited** [D – Turnaround · Risky]: Plant overhaul completed with sovereign utility debt settlement milestones underway.
+### Saturday (Today) (2026-11-21)
+- No qualifying main-board names scheduled.
 
-### Friday (Tomorrow) (2026-11-13)
+### Sunday (Tomorrow) (2026-11-22)
+- No qualifying main-board names scheduled.
+
+### Monday (2026-11-23)
 - **Jupiter Wagons Limited** [A – Very Positive]: Wagon manufacturing expansion with backward integrated braking units.
 - **Eicher Motors Limited** [B – Decent Positive]: Royal Enfield domestic resilience coupled with steady VECV margins.
 - **Amber Enterprises India Limited** [B – Decent Positive]: Component manufacturing scale in RAC and electronics assemblies.
 - **Grasim Industries Limited** [B – Decent Positive]: Chemicals and fiber cash generation supporting decorative paints rollout.
 - **J. Kumar Infraprojects Limited** [B – Decent Positive]: Metro and civil infrastructure execution with healthy order-book-to-bill visibility.
+- **Nava Limited** [D – Turnaround · Risky]: Plant overhaul completed with sovereign utility debt settlement milestones underway.
 
-### Saturday (2026-11-14)
+### Tuesday (2026-11-24)
 - **Hindustan Aeronautics Limited** [A – Very Positive]: Defence manufacturing leader with Rs. 94,000 cr backlog and sustained execution run-rate.
 - **Muthoot Finance Limited** [A – Very Positive]: Gold financing expansion backed by elevated collateral values and steady branch productivity.
+
+### Wednesday (2026-11-25)
 - **Alkem Laboratories Limited** [B – Decent Positive]: Formulations strength in acute therapies backed by stabilizing US price realizations.
 
-### Sunday (2026-11-15)
+### Thursday (2026-11-26)
 - No qualifying main-board names scheduled.
 
-### Monday (2026-11-16)
+### Friday (2026-11-27)
 - No qualifying main-board names scheduled.
 
-### Tuesday (2026-11-17)
-- No qualifying main-board names scheduled.
-
-### Wednesday (2026-11-18)
-- No qualifying main-board names scheduled.
-
-### Thursday (2026-11-19)
+### Saturday (2026-11-28)
 - No qualifying main-board names scheduled.
 
 ## Changes Since Yesterday
@@ -191,4 +214,4 @@ Results date: 12 Nov 2026
 - **Hero MotoCorp Limited** (Automobiles): Already reported on 28 Oct 2026. Pruned from active radar.
 
 ---
-*Verified on: 12 Nov 2026 | Pre-Results Radar Engine*
+*Verified on: 21 Nov 2026 | Pre-Results Radar Engine*

@@ -96,16 +96,67 @@ export class RadarEngine {
   }
 
   getCurrentIST() {
+    const now = new Date();
+    const parts = new Intl.DateTimeFormat('en-IN', {
+      timeZone: 'Asia/Kolkata',
+      year: 'numeric',
+      month: 'short',
+      day: 'numeric',
+      hour: '2-digit',
+      minute: '2-digit',
+      hour12: false
+    }).formatToParts(now);
+
+    const partMap = {};
+    for (const p of parts) partMap[p.type] = p.value;
+
+    const dateFormatted = `${partMap.day} ${partMap.month} ${partMap.year}`;
+    const timeFormatted = `${partMap.hour}:${partMap.minute} IST`;
+
+    const isoParts = new Intl.DateTimeFormat('en-CA', {
+      timeZone: 'Asia/Kolkata',
+      year: 'numeric',
+      month: '2-digit',
+      day: '2-digit'
+    }).format(now);
+
+    const istDateObj = new Date(new Date().toLocaleString('en-US', { timeZone: 'Asia/Kolkata' }));
+    const dayOfWeek = istDateObj.getDay();
+    let daysToAdd = 1;
+    if (dayOfWeek === 5) daysToAdd = 3;
+    else if (dayOfWeek === 6) daysToAdd = 2;
+    else if (dayOfWeek === 0) daysToAdd = 1;
+
+    const nextTradingDateObj = new Date(istDateObj);
+    nextTradingDateObj.setDate(istDateObj.getDate() + daysToAdd);
+
+    const nextTradingParts = new Intl.DateTimeFormat('en-IN', {
+      timeZone: 'Asia/Kolkata',
+      year: 'numeric',
+      month: 'short',
+      day: 'numeric'
+    }).formatToParts(nextTradingDateObj);
+    const nMap = {};
+    for (const p of nextTradingParts) nMap[p.type] = p.value;
+    const nextTradingDayFormatted = `${nMap.day} ${nMap.month} ${nMap.year}`;
+
+    const nextTradingRaw = new Intl.DateTimeFormat('en-CA', {
+      timeZone: 'Asia/Kolkata',
+      year: 'numeric',
+      month: '2-digit',
+      day: '2-digit'
+    }).format(nextTradingDateObj);
+
     return {
-      dateFormatted: '12 Nov 2026',
-      timeFormatted: '08:00 IST',
-      rawDate: '2026-11-12',
-      nextTradingDay: '2026-11-13',
-      nextTradingDayFormatted: '13 Nov 2026'
+      dateFormatted,
+      timeFormatted,
+      rawDate: isoParts,
+      nextTradingDay: nextTradingRaw,
+      nextTradingDayFormatted
     };
   }
 
-  generateRadar(runType = '08:00') {
+  generateRadar(runType = '08:00', saveSnapshotToDb = true) {
     const ist = this.getCurrentIST();
     const currentDate = ist.rawDate;
     const nextTradingDay = ist.nextTradingDay;
@@ -149,7 +200,15 @@ export class RadarEngine {
       }
     ];
 
-    const maxWindowDate = '2026-11-19';
+    const istDateObj = new Date(new Date().toLocaleString('en-US', { timeZone: 'Asia/Kolkata' }));
+    const maxWindowDateObj = new Date(istDateObj);
+    maxWindowDateObj.setDate(istDateObj.getDate() + 7);
+    const maxWindowDate = new Intl.DateTimeFormat('en-CA', {
+      timeZone: 'Asia/Kolkata',
+      year: 'numeric',
+      month: '2-digit',
+      day: '2-digit'
+    }).format(maxWindowDateObj);
 
     for (const row of rows) {
       if (row.has_reported === 1 || row.results_date < currentDate) {
@@ -301,16 +360,22 @@ export class RadarEngine {
       }
     }
 
-    const calendarDays = [
-      { date: '2026-11-12', dayName: 'Thursday (Today)', items: [] },
-      { date: '2026-11-13', dayName: 'Friday (Tomorrow)', items: [] },
-      { date: '2026-11-14', dayName: 'Saturday', items: [] },
-      { date: '2026-11-15', dayName: 'Sunday', items: [] },
-      { date: '2026-11-16', dayName: 'Monday', items: [] },
-      { date: '2026-11-17', dayName: 'Tuesday', items: [] },
-      { date: '2026-11-18', dayName: 'Wednesday', items: [] },
-      { date: '2026-11-19', dayName: 'Thursday', items: [] }
-    ];
+    const calendarDays = [];
+    const dayNames = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+    for (let i = 0; i <= 7; i++) {
+      const d = new Date(istDateObj);
+      d.setDate(istDateObj.getDate() + i);
+      const iso = new Intl.DateTimeFormat('en-CA', { timeZone: 'Asia/Kolkata', year: 'numeric', month: '2-digit', day: '2-digit' }).format(d);
+      const dName = dayNames[d.getDay()];
+      let label = dName;
+      if (i === 0) label = `${dName} (Today)`;
+      else if (i === 1) label = `${dName} (Tomorrow)`;
+      calendarDays.push({
+        date: iso,
+        dayName: label,
+        items: []
+      });
+    }
 
     const allActive = [
       ...catA.map(i => ({ ...i, tag: 'A – Very Positive' })),
@@ -350,13 +415,23 @@ export class RadarEngine {
       exclusions: exclusions
     };
 
-    const saveSnapshot = this.db.prepare(`
-      INSERT INTO radar_runs (run_date, run_time_ist, run_type, snapshot_json)
-      VALUES (?, ?, ?, ?)
-    `);
-    saveSnapshot.run(ist.rawDate, ist.timeFormatted, runType, JSON.stringify(payload));
+    if (saveSnapshotToDb) {
+      try {
+        const saveSnapshot = this.db.prepare(`
+          INSERT INTO radar_runs (run_date, run_time_ist, run_type, snapshot_json)
+          VALUES (?, ?, ?, ?)
+        `);
+        saveSnapshot.run(ist.rawDate, ist.timeFormatted, runType, JSON.stringify(payload));
+      } catch (dbErr) {
+        console.warn('[Snapshot DB] Non-fatal notice:', dbErr.message);
+      }
+    }
 
-    this.saveArtifacts(payload, ist);
+    try {
+      this.saveArtifacts(payload, ist);
+    } catch (artErr) {
+      console.warn('[Artifacts] Non-fatal notice:', artErr.message);
+    }
 
     return payload;
   }

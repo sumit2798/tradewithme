@@ -124,21 +124,22 @@ document.addEventListener('DOMContentLoaded', () => {
   const btnCloseTradePlan = document.getElementById('btn-close-trade-plan');
   const btnDismissTradePlan = document.getElementById('btn-dismiss-trade-plan');
 
-  // Fetch Radar Data & Trade Plans (with GitHub Pages static fallback)
+  // Fetch Radar Data & Trade Plans (with GitHub Pages static fallback & cache-busting)
   async function loadRadarData() {
+    const t = Date.now();
     let loaded = false;
     try {
-      const res = await fetch('/api/radar');
+      const res = await fetch(`/api/radar?_t=${t}`, { cache: 'no-store' });
       if (res.ok) {
         radarData = await res.json();
         loaded = true;
       }
     } catch (err) {}
 
-    // Fallback to static JSON for GitHub Pages hosting
+    // Fallback to static JSON for GitHub Pages hosting with cache-busting
     if (!loaded) {
       try {
-        const staticRes = await fetch('./data/radar.json');
+        const staticRes = await fetch(`./data/radar.json?_t=${t}`, { cache: 'no-store' });
         if (staticRes.ok) {
           radarData = await staticRes.json();
           loaded = true;
@@ -153,7 +154,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
       // Also sync trade plans from backend if available
       try {
-        const plansRes = await fetch('/api/plans');
+        const plansRes = await fetch(`/api/plans?_t=${t}`, { cache: 'no-store' });
         if (plansRes.ok) {
           const serverPlans = await plansRes.json();
           tradePlansMap = { ...tradePlansMap, ...serverPlans };
@@ -167,15 +168,16 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   async function loadArchiveList() {
+    const t = Date.now();
     let archives = [];
     try {
-      const res = await fetch('/api/archive');
+      const res = await fetch(`/api/archive?_t=${t}`, { cache: 'no-store' });
       if (res.ok) archives = await res.json();
     } catch (err) {}
 
     if (!archives.length) {
       try {
-        const staticRes = await fetch('./data/archive.json');
+        const staticRes = await fetch(`./data/archive.json?_t=${t}`, { cache: 'no-store' });
         if (staticRes.ok) archives = await staticRes.json();
       } catch (e) {}
     }
@@ -194,8 +196,14 @@ document.addEventListener('DOMContentLoaded', () => {
       loadRadarData();
     } else {
       try {
-        const res = await fetch('/api/archive');
-        const archives = await res.json();
+        const t = Date.now();
+        let archives = [];
+        const res = await fetch(`/api/archive?_t=${t}`, { cache: 'no-store' });
+        if (res.ok) archives = await res.json();
+        else {
+          const sRes = await fetch(`./data/archive.json?_t=${t}`, { cache: 'no-store' });
+          if (sRes.ok) archives = await sRes.json();
+        }
         const selected = archives[e.target.value];
         if (selected && selected.data) {
           radarData = selected.data;
@@ -210,9 +218,23 @@ document.addEventListener('DOMContentLoaded', () => {
   btnForceRefresh.addEventListener('click', async () => {
     btnForceRefresh.disabled = true;
     btnForceRefresh.innerHTML = `Refreshing...`;
+    const t = Date.now();
     try {
-      const res = await fetch('/api/refresh', { method: 'POST' });
-      radarData = await res.json();
+      let refreshed = false;
+      try {
+        const res = await fetch(`/api/refresh?_t=${t}`, { method: 'POST', cache: 'no-store' });
+        if (res.ok) {
+          radarData = await res.json();
+          refreshed = true;
+        }
+      } catch (e) {}
+
+      if (!refreshed) {
+        const staticRes = await fetch(`./data/radar.json?_t=${t}`, { cache: 'no-store' });
+        if (staticRes.ok) {
+          radarData = await staticRes.json();
+        }
+      }
       renderAll();
     } catch (err) {
       console.error('Refresh error:', err);
