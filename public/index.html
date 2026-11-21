@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- MANDATORY: Declare support for both light and dark themes -->
+  <meta name="color-scheme" content="light dark">
+  <title>Pre-Results Radar | NSE/BSE Main Board</title>
+  <!-- Inline script strictly for FOUC prevention as per Modern Web Guidance -->
+  <script>
+    try {
+      const stored = localStorage.getItem("color-scheme");
+      if (stored) {
+        document.querySelector('meta[name="color-scheme"]').content = stored;
+      }
+    } catch(e) {}
+  </script>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <!-- Sticky Header -->
+  <header class="sticky-header">
+    <div class="header-inner">
+      <div class="header-left">
+        <span class="brand-badge">Radar Engine</span>
+        <h1 class="header-title">Pre-Results Radar <span style="font-weight: 400; font-size: 0.85rem; color: var(--text-muted);">(NSE/BSE Main Board)</span></h1>
+        <span class="timestamp-pill" id="live-timestamp">
+          <span style="display:inline-block; width:7px; height:7px; border-radius:50%; background:#10b981;"></span>
+          Last Updated: 12 Nov 2026, 08:00 IST
+        </span>
+      </div>
+      <div class="header-actions">
+        <!-- Archive Selector -->
+        <select id="archive-select" class="select-filter" title="Historical Radar Archive">
+          <option value="latest">Current Radar (Today)</option>
+        </select>
+        <!-- Force Refresh Button -->
+        <button id="btn-force-refresh" class="btn" title="Run instant live verification">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21.5 2v6h-6M21.34 15.57a10 10 0 1 1-.57-8.38l5.67-5.67"/></svg>
+          Force Refresh
+        </button>
+        <!-- Export Button -->
+        <button id="btn-export-open" class="btn" title="Export for WhatsApp, Telegram, or Markdown">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"/><polyline points="16 6 12 2 8 6"/><line x1="12" y1="2" x2="12" y2="15"/></svg>
+          Export
+        </button>
+        <!-- Dark / Light Mode Toggle Button -->
+        <button id="theme-toggle-btn" class="btn btn-icon" aria-label="Toggle theme">
+          <span id="theme-icon">🌙</span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main class="app-container">
+    <!-- Filter & Control Bar -->
+    <section class="filter-bar">
+      <div class="search-box">
+        <svg class="search-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+        <input type="text" id="search-input" class="search-input" placeholder="Search company name...">
+      </div>
+
+      <div class="filter-group">
+        <!-- Market Cap Filter -->
+        <select id="mcap-filter" class="select-filter">
+          <option value="all">All Market Caps</option>
+          <option value="List 1">List 1 (≥ Rs. 20,000 cr)</option>
+          <option value="List 2">List 2 (Rs. 5,000 – 20,000 cr)</option>
+        </select>
+
+        <!-- Sector Filter -->
+        <select id="sector-filter" class="select-filter">
+          <option value="all">All Sectors</option>
+        </select>
+
+        <!-- Starred Only -->
+        <label class="toggle-label" title="Show only starred names">
+          <input type="checkbox" id="starred-toggle" class="toggle-switch">
+          <span>Starred</span>
+        </label>
+
+        <!-- Planned Trades Only -->
+        <label class="toggle-label" title="Show only stocks with user-defined entry/stop-loss">
+          <input type="checkbox" id="plans-toggle" class="toggle-switch">
+          <span>Planned Stops</span>
+        </label>
+
+        <!-- Quiet Mode (Hide Category D & Low Confidence) -->
+        <label class="toggle-label" title="Quiet Mode: Hides Category D and low confidence names for rapid scan">
+          <input type="checkbox" id="quiet-toggle" class="toggle-switch">
+          <span>Quiet Mode</span>
+        </label>
+      </div>
+    </section>
+
+    <!-- One-Week Overview Calendar View -->
+    <section class="overview-section">
+      <div class="overview-header">
+        <div class="section-headline">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+          One-Week Overview by Day
+        </div>
+        <span style="font-size: 0.75rem; color: var(--text-muted);">Horizontal 7-day calendar</span>
+      </div>
+      <div class="overview-scroll" id="overview-scroll-container">
+        <!-- Injected via JavaScript -->
+      </div>
+    </section>
+
+    <!-- Categories Container -->
+    <div class="categories-container" id="categories-container">
+      
+      <!-- Category A: Very Positive -->
+      <section class="category-block" id="cat-block-A">
+        <div class="category-header cat-a">
+          <div class="category-title-wrap">
+            <h2 class="category-title">
+              Category A – Very Positive
+              <span class="category-count" id="count-A">0</span>
+            </h2>
+            <p class="category-subtitle">Internal score ≥ 75, verified filings, strong revenue/profit growth, and high delivery run-rate.</p>
+          </div>
+        </div>
+        <div class="cards-grid" id="grid-A"></div>
+      </section>
+
+      <!-- Category B: Decent Positive -->
+      <section class="category-block" id="cat-block-B">
+        <div class="category-header cat-b">
+          <div class="category-title-wrap">
+            <h2 class="category-title">
+              Category B – Decent Positive
+              <span class="category-count" id="count-B">0</span>
+            </h2>
+            <p class="category-subtitle">Internal score 65–74, decent positive business updates, stable margin expectations, and steady volume performance.</p>
+          </div>
+        </div>
+        <div class="cards-grid" id="grid-B"></div>
+      </section>
+
+      <!-- Category C: Tomorrow -->
+      <section class="category-block" id="cat-block-C">
+        <div class="category-header cat-c">
+          <div class="category-title-wrap">
+            <h2 class="category-title">
+              Category C – Tomorrow (Next Trading Day)
+              <span class="category-count" id="count-C">0</span>
+            </h2>
+            <p class="category-subtitle">All verified main-board names reporting on the next trading day.</p>
+          </div>
+        </div>
+        <div class="cards-grid" id="grid-C"></div>
+      </section>
+
+      <!-- Category D: Turnaround / Risky -->
+      <section class="category-block" id="cat-block-D">
+        <div class="category-header cat-d">
+          <div class="category-title-wrap">
+            <h2 class="category-title">
+              Category D – Turnaround · Risky
+              <span class="category-count" id="count-D">0</span>
+            </h2>
+            <p class="category-subtitle">Weak prior quarter with hard, verifiable recovery evidence only.</p>
+          </div>
+        </div>
+        <div class="cards-grid" id="grid-D"></div>
+      </section>
+
+    </div>
+
+    <!-- Expandable Section: Changes Since Yesterday -->
+    <details class="expandable-block" id="changes-expandable">
+      <summary class="expandable-summary">
+        <span>Changes Since Yesterday <span id="changes-count-badge" style="font-weight: normal; color: var(--text-muted); font-size: 0.8rem;">(0 updates)</span></span>
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+      </summary>
+      <div class="expandable-content">
+        <ul class="changes-list" id="changes-list"></ul>
+      </div>
+    </details>
+
+    <!-- Expandable Section: Exclusions & Drops -->
+    <details class="expandable-block" id="exclusions-expandable">
+      <summary class="expandable-summary">
+        <span>Exclusions & Screened Drops <span id="exclusions-count-badge" style="font-weight: normal; color: var(--text-muted); font-size: 0.8rem;">(0 dropped)</span></span>
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+      </summary>
+      <div class="expandable-content">
+        <p style="font-size: 0.75rem; color: var(--text-muted); margin-bottom: 0.75rem;">
+          Screened out based on strict rules: Loss-making quarters, promoter pledge > 25%, market-cap &lt; Rs. 5,000 cr, unverified filings, or past reporting.
+        </p>
+        <div style="overflow-x: auto;">
+          <table class="exclusions-table">
+            <thead>
+              <tr>
+                <th>Company Name</th>
+                <th>Sector</th>
+                <th>Bucket</th>
+                <th>Exclusion Reason</th>
+              </tr>
+            </thead>
+            <tbody id="exclusions-tbody"></tbody>
+          </table>
+        </div>
+      </div>
+    </details>
+
+    <!-- Footer & Strict Regulatory Disclosure -->
+    <footer class="dashboard-footer">
+      <div><strong>Pre-Results Radar Engine</strong> | Verified on: <span id="footer-verified-date">12 Nov 2026</span></div>
+      <div>Compliance Rules: English only • Amounts in Rs. • No prices • No tickers • No internal scores • Never recommend buy/sell • User-defined risk planning</div>
+      <div style="font-size: 0.7rem; color: var(--text-muted);">Antigravity Automated Scheduled Runs: 07:45 IST (Build C + Prune) &amp; 08:00 IST (Full Refresh)</div>
+    </footer>
+  </main>
+
+  <!-- Export Modal -->
+  <div class="modal-overlay" id="export-modal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3 class="modal-title">Export Pre-Results Radar</h3>
+        <button class="btn btn-icon" id="btn-close-export">✕</button>
+      </div>
+      <div class="modal-body">
+        <div style="display:flex; gap:0.5rem; margin-bottom:0.75rem;">
+          <button class="btn btn-primary" id="btn-copy-whatsapp">Copy WhatsApp / Telegram</button>
+          <button class="btn" id="btn-copy-markdown">Copy Markdown</button>
+          <button class="btn" onclick="window.print()">Print / PDF</button>
+        </div>
+        <textarea id="export-textarea" class="modal-textarea" readonly></textarea>
+      </div>
+      <div class="modal-footer">
+        <button class="btn" id="btn-dismiss-export">Close</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Stock Thesis / Notes Modal -->
+  <div class="modal-overlay" id="notes-modal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3 class="modal-title" id="notes-modal-title">Personal Thesis / Notes</h3>
+        <button class="btn btn-icon" id="btn-close-notes">✕</button>
+      </div>
+      <div class="modal-body">
+        <p style="font-size:0.75rem; color:var(--text-muted); margin-bottom:0.5rem;">Notes are saved locally and synced with the radar engine.</p>
+        <textarea id="stock-notes-input" class="modal-textarea" style="height:150px;" placeholder="Write your personal thesis or observations on this stock..."></textarea>
+      </div>
+      <div class="modal-footer">
+        <span id="notes-save-status" style="font-size:0.75rem; color:#10b981; margin-right:auto; display:none;">Saved!</span>
+        <button class="btn btn-primary" id="btn-save-note">Save Thesis</button>
+        <button class="btn" id="btn-dismiss-notes">Done</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Trade Planning / Entry & Stop Loss Modal -->
+  <div class="modal-overlay" id="trade-plan-modal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3 class="modal-title" id="trade-plan-title">Trade &amp; Risk Planning</h3>
+        <button class="btn btn-icon" id="btn-close-trade-plan">✕</button>
+      </div>
+      <div class="modal-body">
+        <div style="background:var(--surface-subtle); padding:0.75rem; border-radius:var(--radius-sm); border:1px solid var(--border); margin-bottom:1rem; font-size:0.8rem;">
+          <strong>Risk Management Protocol:</strong>
+          <div id="modal-invalidation-text" style="color:var(--text-muted); margin-top:0.25rem;"></div>
+          <div id="modal-volatility-text" style="color:#2563eb; font-weight:600; margin-top:0.25rem;"></div>
+        </div>
+
+        <form id="trade-plan-form" onsubmit="return false;" style="display:flex; flex-direction:column; gap:0.75rem;">
+          <div>
+            <label style="font-size:0.75rem; font-weight:600; display:block; margin-bottom:0.25rem;">Your Planned Entry (Rs.)</label>
+            <input type="number" step="0.05" id="plan-entry-input" class="search-input" placeholder="e.g. 4850.00" required>
+          </div>
+          <div>
+            <label style="font-size:0.75rem; font-weight:600; display:block; margin-bottom:0.25rem;">Your Planned Stop Loss (Rs.)</label>
+            <input type="number" step="0.05" id="plan-stop-input" class="search-input" placeholder="e.g. 4620.00" required>
+          </div>
+          <div>
+            <label style="font-size:0.75rem; font-weight:600; display:block; margin-bottom:0.25rem;">Target Exit (Rs.) [Optional]</label>
+            <input type="number" step="0.05" id="plan-target-input" class="search-input" placeholder="e.g. 5310.00">
+          </div>
+
+          <!-- Dynamic Calculation Summary -->
+          <div id="plan-calc-summary" style="background:var(--surface-subtle); border:1px solid var(--border); border-radius:var(--radius-sm); padding:0.75rem; font-size:0.8rem; display:none;">
+            <div style="display:flex; justify-content:space-between; margin-bottom:0.25rem;">
+              <span>Risk per share:</span>
+              <strong id="calc-risk-val" style="color:#dc2626;">Rs. 0.00 (0.0%)</strong>
+            </div>
+            <div style="display:flex; justify-content:space-between; margin-bottom:0.25rem;">
+              <span>Calculated 1:2 Target:</span>
+              <strong id="calc-target-1to2" style="color:#059669;">Rs. 0.00</strong>
+            </div>
+            <div style="display:flex; justify-content:space-between;">
+              <span>Risk-to-Reward Ratio:</span>
+              <strong id="calc-rr-val" style="color:#2563eb;">1 : 0.0</strong>
+            </div>
+          </div>
+
+          <div>
+            <label style="font-size:0.75rem; font-weight:600; display:block; margin-bottom:0.25rem;">Trade Strategy Notes</label>
+            <textarea id="plan-notes-input" class="modal-textarea" style="height:70px;" placeholder="Position sizing, trade triggers, or post-earnings exit rules..."></textarea>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-secondary" id="btn-clear-trade-plan" style="margin-right:auto; color:#dc2626;">Clear Plan</button>
+        <button class="btn btn-primary" id="btn-save-trade-plan">Save Trade Plan</button>
+        <button class="btn" id="btn-dismiss-trade-plan">Close</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>

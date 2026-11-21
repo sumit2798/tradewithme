@@ -1,0 +1,53 @@
+name: Deploy Pre-Results Radar to GitHub Pages
+
+on:
+  push:
+    branches:
+      - main
+  # Scheduled daily refresh (Mon-Fri)
+  schedule:
+    # 07:45 IST = 02:15 UTC (Build C + Prune)
+    - cron: '15 2 * * 1-5'
+    # 08:00 IST = 02:30 UTC (Full Refresh A/B/D + Overview)
+    - cron: '30 2 * * 1-5'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  pages: write
+  id-token: write
+
+concurrency:
+  group: 'pages'
+  cancel-in-progress: false
+
+jobs:
+  build-and-deploy:
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Build Radar & Export Static Assets
+        run: |
+          npm run build
+
+      - name: Setup Pages
+        uses: actions/configure-pages@v5
+
+      - name: Upload GitHub Pages Artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: './public'
+
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
