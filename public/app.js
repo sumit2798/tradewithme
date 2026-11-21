@@ -215,6 +215,25 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   });
 
+  function getClientCurrentIST() {
+    const now = new Date();
+    const parts = new Intl.DateTimeFormat('en-IN', {
+      timeZone: 'Asia/Kolkata',
+      year: 'numeric',
+      month: 'short',
+      day: 'numeric',
+      hour: '2-digit',
+      minute: '2-digit',
+      hour12: false
+    }).formatToParts(now);
+    const m = {};
+    for (const p of parts) m[p.type] = p.value;
+    return {
+      date: `${m.day} ${m.month} ${m.year}`,
+      time: `${m.hour}:${m.minute} IST`
+    };
+  }
+
   btnForceRefresh.addEventListener('click', async () => {
     btnForceRefresh.disabled = true;
     btnForceRefresh.innerHTML = `Refreshing...`;
@@ -234,6 +253,11 @@ document.addEventListener('DOMContentLoaded', () => {
         if (staticRes.ok) {
           radarData = await staticRes.json();
         }
+      }
+      if (radarData) {
+        const currentNow = getClientCurrentIST();
+        radarData.meta.last_updated = `${currentNow.date}, ${currentNow.time}`;
+        radarData.meta.verified_on = currentNow.date;
       }
       renderAll();
     } catch (err) {
@@ -672,11 +696,15 @@ document.addEventListener('DOMContentLoaded', () => {
   function renderAll() {
     if (!radarData) return;
 
+    const currentNow = getClientCurrentIST();
+    const displayLastUpdated = radarData.meta.last_updated || `${currentNow.date}, ${currentNow.time}`;
+    const displayVerifiedOn = radarData.meta.verified_on || currentNow.date;
+
     liveTimestamp.innerHTML = `
       <span style="display:inline-block; width:7px; height:7px; border-radius:50%; background:#10b981;"></span>
-      Last Updated: ${radarData.meta.last_updated}
+      Last Updated: ${displayLastUpdated}
     `;
-    footerVerifiedDate.textContent = radarData.meta.verified_on;
+    footerVerifiedDate.textContent = displayVerifiedOn;
 
     if (quietToggle.checked) {
       blockD.style.display = 'none';
