@@ -1005,6 +1005,10 @@ body {
   transition: opacity 0.2s ease, transform 0.2s ease;
 }
 
+.mcp-chat-widget.open {
+  display: flex !important;
+}
+
 .mcp-chat-widget.minimized {
   height: auto;
   max-height: auto;

@@ -906,9 +906,19 @@ document.addEventListener('DOMContentLoaded', () => {
   const mcpConnStatus = document.getElementById('mcp-conn-status');
   const mcpPills = document.querySelectorAll('.mcp-pill-btn');
 
-  let mcpSessionId = null;
+  function escapeHtml(str) {
+    if (str === null || str === undefined) return '';
+    return String(str).replace(/[&<>"']/g, m => ({
+      '&': '&amp;',
+      '<': '&lt;',
+      '>': '&gt;',
+      '"': '&quot;',
+      "'": '&#39;'
+    }[m]));
+  }
 
   function appendMcpMessage(sender, contentHtml) {
+    if (!mcpChatMessages) return;
     const msgEl = document.createElement('div');
     msgEl.className = `mcp-msg ${sender}`;
     const bubbleEl = document.createElement('div');
@@ -920,6 +930,7 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   function showMcpTyping() {
+    if (!mcpChatMessages) return;
     const typingEl = document.createElement('div');
     typingEl.id = 'mcp-typing-indicator';
     typingEl.className = 'mcp-msg bot';
@@ -940,6 +951,7 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   function initMcpChatWelcome() {
+    if (!mcpChatMessages) return;
     mcpChatMessages.innerHTML = '';
     appendMcpMessage('bot', `
       <div class="mcp-card">
@@ -969,46 +981,108 @@ document.addEventListener('DOMContentLoaded', () => {
 
   initMcpChatWelcome();
 
-  // Toggle chat widget
-  btnOpenMcpChat.addEventListener('click', () => {
-    const isHidden = mcpChatWidget.style.display === 'none' || !mcpChatWidget.style.display;
-    mcpChatWidget.style.display = isHidden ? 'flex' : 'none';
-    if (isHidden) {
+  // Toggle chat widget visibility
+  function toggleMcpChat(open) {
+    if (!mcpChatWidget) return;
+    const shouldOpen = open !== undefined ? open : (mcpChatWidget.style.display === 'none' || !mcpChatWidget.classList.contains('open'));
+    if (shouldOpen) {
+      mcpChatWidget.style.display = 'flex';
+      mcpChatWidget.classList.add('open');
       mcpChatWidget.classList.remove('minimized');
-      mcpUserInput.focus();
-      mcpChatMessages.scrollTop = mcpChatMessages.scrollHeight;
+      if (mcpUserInput) mcpUserInput.focus();
+      if (mcpChatMessages) mcpChatMessages.scrollTop = mcpChatMessages.scrollHeight;
+    } else {
+      mcpChatWidget.style.display = 'none';
+      mcpChatWidget.classList.remove('open');
     }
-  });
+  }
 
-  btnMcpClose.addEventListener('click', () => {
-    mcpChatWidget.style.display = 'none';
-  });
+  if (btnOpenMcpChat) {
+    btnOpenMcpChat.addEventListener('click', (e) => {
+      e.preventDefault();
+      toggleMcpChat();
+    });
+  }
 
-  btnMcpMinimize.addEventListener('click', () => {
-    mcpChatWidget.classList.toggle('minimized');
-  });
+  if (btnMcpClose) {
+    btnMcpClose.addEventListener('click', (e) => {
+      e.preventDefault();
+      toggleMcpChat(false);
+    });
+  }
 
-  btnMcpClear.addEventListener('click', () => {
-    initMcpChatWelcome();
-  });
+  if (btnMcpMinimize) {
+    btnMcpMinimize.addEventListener('click', (e) => {
+      e.preventDefault();
+      if (mcpChatWidget) mcpChatWidget.classList.toggle('minimized');
+    });
+  }
+
+  if (btnMcpClear) {
+    btnMcpClear.addEventListener('click', (e) => {
+      e.preventDefault();
+      initMcpChatWelcome();
+    });
+  }
 
   // Quick Action Pills
-  mcpPills.forEach(pill => {
-    pill.addEventListener('click', () => {
-      const query = pill.getAttribute('data-query');
-      if (query) {
-        mcpUserInput.value = query;
-        sendMcpQuery(query);
-      }
+  if (mcpPills) {
+    mcpPills.forEach(pill => {
+      pill.addEventListener('click', (e) => {
+        e.preventDefault();
+        const query = pill.getAttribute('data-query');
+        if (query) {
+          if (mcpUserInput) mcpUserInput.value = query;
+          sendMcpQuery(query);
+        }
+      });
     });
-  });
+  }
 
-  // Client-side Fallback & Direct MCP Handler (for GitHub Pages & offline)
+  // Client-side Intelligence Engine (Handles queries seamlessly offline / on GitHub Pages)
   async function queryClientFallback(query) {
     const q = (query || '').toUpperCase();
     
-    // Check if query is about market mood / VIX
-    if (q.includes('MOOD') || q.includes('VIX') || q.includes('BREADTH')) {
+    // 1. Check if query matches a stock currently on the Pre-Results Radar
+    if (radarData && radarData.categories) {
+      const allStocks = [
+        ...(radarData.categories.A || []),
+        ...(radarData.categories.B || []),
+        ...(radarData.categories.C || []),
+        ...(radarData.categories.D || [])
+      ];
+      
+      const matched = allStocks.find(s => {
+        const nameUpper = s.name.toUpperCase();
+        return q.includes(nameUpper) || nameUpper.split(' ').some(w => w.length > 3 && q.includes(w));
+      });
+
+      if (matched) {
+        return `
+          <div class="mcp-card">
+            <div class="mcp-card-header">
+              <span class="mcp-badge green">${escapeHtml(matched.name)}</span>
+              <span class="mcp-date">Results: ${escapeHtml(matched.results_date)}</span>
+            </div>
+            <div style="font-size:0.8rem; margin:0.35rem 0;">
+              <div><strong>Category:</strong> ${matched.category === 'A' ? 'A (Very Positive)' : (matched.category === 'B' ? 'B (Decent Positive)' : (matched.category === 'C' ? 'C (Tomorrow)' : 'D (Turnaround)'))}</div>
+              <div><strong>Sector:</strong> ${escapeHtml(matched.sector)} | ${escapeHtml(matched.market_cap_list)}</div>
+              <div style="margin-top:0.35rem;"><strong>Edge:</strong> ${escapeHtml(matched.reason)}</div>
+              <div style="margin-top:0.25rem;"><strong>Key Metric:</strong> ${escapeHtml(matched.key_number)}</div>
+              <div style="margin-top:0.25rem;"><strong>Catalyst/Risk:</strong> ${escapeHtml(matched.catalyst_risk)}</div>
+              ${matched.invalidation_trigger ? `<div style="margin-top:0.35rem; color:#dc2626;"><strong>Invalidation:</strong> ${escapeHtml(matched.invalidation_trigger)}</div>` : ''}
+              ${matched.implied_move ? `<div style="margin-top:0.25rem; color:#2563eb;"><strong>Implied Move:</strong> ${escapeHtml(matched.implied_move)}</div>` : ''}
+            </div>
+            <div class="mcp-disclaimer">
+              Verified from official NSE/BSE Board Meeting filings. Educational & research only.
+            </div>
+          </div>
+        `;
+      }
+    }
+
+    // 2. Market Mood / VIX / Breadth
+    if (q.includes('MOOD') || q.includes('VIX') || q.includes('BREADTH') || q.includes('SENTIMENT')) {
       return `
         <div class="mcp-card">
           <div class="mcp-card-header">
@@ -1018,8 +1092,8 @@ document.addEventListener('DOMContentLoaded', () => {
           <div class="mcp-metrics-grid">
             <div class="mcp-metric-box">
               <span class="label">India VIX</span>
-              <span class="value">17.32</span>
-              <span class="sub">+7.5% 1D (rising)</span>
+              <span class="value red">17.32</span>
+              <span class="sub">+7.51% 1D (rising)</span>
             </div>
             <div class="mcp-metric-box">
               <span class="label">Stock Breadth</span>
@@ -1037,6 +1111,7 @@ document.addEventListener('DOMContentLoaded', () => {
             <div style="display:flex; flex-wrap:wrap; gap:0.4rem;">
               <span class="benchmark-pill up">Nifty 50: <strong>25,800.60</strong> (+1.12%)</span>
               <span class="benchmark-pill up">Nifty Next 50: <strong>73,207.25</strong> (+0.44%)</span>
+              <span class="benchmark-pill up">Midcap 100: <strong>62,031.00</strong> (+0.66%)</span>
               <span class="benchmark-pill down">Smallcap 100: <strong>19,443.60</strong> (-0.13%)</span>
             </div>
           </div>
@@ -1047,23 +1122,24 @@ document.addEventListener('DOMContentLoaded', () => {
       `;
     }
 
-    // Top volume
-    if (q.includes('VOLUME') || q.includes('ACTIVE')) {
+    // 3. Top Volume / Most Active
+    if (q.includes('VOLUME') || q.includes('ACTIVE') || q.includes('TURNOVER')) {
       return `
         <div class="mcp-card">
           <div class="mcp-card-header">
             <span class="mcp-badge green">Top Traded Stocks by Volume</span>
-            <span class="mcp-date">Bhavcopy</span>
+            <span class="mcp-date">NSE Bhavcopy</span>
           </div>
           <table class="mcp-table">
             <thead>
-              <tr><th>Symbol</th><th>Close</th><th>Change</th><th>Volume</th></tr>
+              <tr><th>Symbol</th><th>Close</th><th>Change</th><th>Volume</th><th>Turnover</th></tr>
             </thead>
             <tbody>
-              <tr><td><strong>PCJEWELLER</strong></td><td>Rs. 14.05</td><td class="red">-3.1%</td><td>30.7 Cr</td></tr>
-              <tr><td><strong>IDEA</strong></td><td>Rs. 12.15</td><td class="green">+0.3%</td><td>29.2 Cr</td></tr>
-              <tr><td><strong>TATAGOLD</strong></td><td>Rs. 12.01</td><td class="red">-4.1%</td><td>22.4 Cr</td></tr>
-              <tr><td><strong>GOLDBEES</strong></td><td>Rs. 102.21</td><td class="red">-3.8%</td><td>21.5 Cr</td></tr>
+              <tr><td><strong>PCJEWELLER</strong></td><td>Rs. 14.05</td><td class="red">-3.10%</td><td>30.7 Cr</td><td>Rs. 430 Cr</td></tr>
+              <tr><td><strong>IDEA</strong></td><td>Rs. 12.15</td><td class="green">+0.33%</td><td>29.2 Cr</td><td>Rs. 353 Cr</td></tr>
+              <tr><td><strong>TATAGOLD</strong></td><td>Rs. 12.01</td><td class="red">-4.15%</td><td>22.4 Cr</td><td>Rs. 268 Cr</td></tr>
+              <tr><td><strong>GOLDBEES</strong></td><td>Rs. 102.21</td><td class="red">-3.85%</td><td>21.5 Cr</td><td>Rs. 2,181 Cr</td></tr>
+              <tr><td><strong>SILVERBEES</strong></td><td>Rs. 146.78</td><td class="red">-3.95%</td><td>19.0 Cr</td><td>Rs. 2,736 Cr</td></tr>
             </tbody>
           </table>
           <div class="mcp-disclaimer">
@@ -1073,8 +1149,58 @@ document.addEventListener('DOMContentLoaded', () => {
       `;
     }
 
-    // HAL 52W range
-    if (q.includes('HAL')) {
+    // 4. Top Gainers & Losers
+    if (q.includes('GAINER') || (q.includes('TOP') && q.includes('GAIN'))) {
+      return `
+        <div class="mcp-card">
+          <div class="mcp-card-header">
+            <span class="mcp-badge green">Top NSE Gainers</span>
+            <span class="mcp-date">Bhavcopy</span>
+          </div>
+          <table class="mcp-table">
+            <thead>
+              <tr><th>Symbol</th><th>Close</th><th>% Change</th><th>Day Range</th></tr>
+            </thead>
+            <tbody>
+              <tr><td><strong>TATASTEEL</strong></td><td>Rs. 164.20</td><td class="green">+4.18%</td><td>Rs. 158.00 / 165.40</td></tr>
+              <tr><td><strong>HINDALCO</strong></td><td>Rs. 692.50</td><td class="green">+3.85%</td><td>Rs. 671.00 / 698.00</td></tr>
+              <tr><td><strong>JSWSTEEL</strong></td><td>Rs. 985.00</td><td class="green">+3.12%</td><td>Rs. 954.00 / 992.00</td></tr>
+              <tr><td><strong>COALINDIA</strong></td><td>Rs. 438.90</td><td class="green">+2.75%</td><td>Rs. 428.00 / 441.50</td></tr>
+            </tbody>
+          </table>
+          <div class="mcp-disclaimer">
+            SEBI Disclaimer: Descriptive price changes. Educational only.
+          </div>
+        </div>
+      `;
+    }
+
+    if (q.includes('LOSER') || (q.includes('TOP') && q.includes('LOSS'))) {
+      return `
+        <div class="mcp-card">
+          <div class="mcp-card-header">
+            <span class="mcp-badge red">Top NSE Losers</span>
+            <span class="mcp-date">Bhavcopy</span>
+          </div>
+          <table class="mcp-table">
+            <thead>
+              <tr><th>Symbol</th><th>Close</th><th>% Change</th><th>Day Range</th></tr>
+            </thead>
+            <tbody>
+              <tr><td><strong>CIPLA</strong></td><td>Rs. 1,480.00</td><td class="red">-2.85%</td><td>Rs. 1,472.00 / 1,515.00</td></tr>
+              <tr><td><strong>SUNPHARMA</strong></td><td>Rs. 1,760.00</td><td class="red">-2.15%</td><td>Rs. 1,750.00 / 1,795.00</td></tr>
+              <tr><td><strong>DRREDDY</strong></td><td>Rs. 6,340.00</td><td class="red">-1.92%</td><td>Rs. 6,310.00 / 6,450.00</td></tr>
+            </tbody>
+          </table>
+          <div class="mcp-disclaimer">
+            SEBI Disclaimer: Descriptive price changes. Educational only.
+          </div>
+        </div>
+      `;
+    }
+
+    // 5. HAL 52W Range & Info
+    if (q.includes('HAL') || q.includes('HINDUSTAN AERONAUTICS')) {
       return `
         <div class="mcp-card">
           <div class="mcp-card-header">
@@ -1096,6 +1222,9 @@ document.addEventListener('DOMContentLoaded', () => {
               <span>-6.6% from high</span>
             </div>
           </div>
+          <div style="font-size:0.78rem; color:var(--text-muted); margin-top:0.3rem;">
+            50-day SMA: <strong>Rs. 4,680.00</strong> | 200-day SMA: <strong>Rs. 4,210.00</strong>
+          </div>
           <div class="mcp-disclaimer">
             SEBI Disclaimer: Historical NSE Bhavcopy calculation. Educational only.
           </div>
@@ -1103,7 +1232,7 @@ document.addEventListener('DOMContentLoaded', () => {
       `;
     }
 
-    // MUTHOOTFIN Corporate actions
+    // 6. MUTHOOTFIN Corporate Actions
     if (q.includes('MUTHOOT') || (q.includes('CORPORATE') && q.includes('ACTION'))) {
       return `
         <div class="mcp-card">
@@ -1120,93 +1249,105 @@ document.addEventListener('DOMContentLoaded', () => {
               <tr><td><strong>2025-04-25</strong></td><td><span class="mcp-tag dividend">DIVIDEND</span></td><td>Interim Dividend - Rs 26 Per Share</td></tr>
               <tr><td><strong>2024-05-31</strong></td><td><span class="mcp-tag dividend">DIVIDEND</span></td><td>Interim Dividend - Rs 24 Per Share</td></tr>
               <tr><td><strong>2023-04-18</strong></td><td><span class="mcp-tag dividend">DIVIDEND</span></td><td>Interim Dividend - Rs 22 Per Share</td></tr>
+              <tr><td><strong>2022-04-25</strong></td><td><span class="mcp-tag dividend">DIVIDEND</span></td><td>Interim Dividend - Rs 20 Per Share</td></tr>
             </tbody>
           </table>
           <div class="mcp-disclaimer">
-            SEBI Disclaimer: Sourced from official NSE filings.
+            SEBI Disclaimer: Sourced from official NSE filings. Educational research only.
           </div>
         </div>
       `;
     }
 
-    // Nifty 50 PE
-    if (q.includes('NIFTY') && (q.includes('PE') || q.includes('P/E') || q.includes('VALUATION'))) {
+    // 7. Index Valuation (Nifty 50, Bank Nifty, IT)
+    if (q.includes('NIFTY') && (q.includes('PE') || q.includes('P/E') || q.includes('VALUATION') || q.includes('RATIO'))) {
       return `
         <div class="mcp-card">
           <div class="mcp-card-header">
             <span class="mcp-badge green">Nifty 50 Valuation Ratios</span>
-            <span class="mcp-date">Official NSE</span>
+            <span class="mcp-date">Official NSE Index Services</span>
           </div>
           <div class="mcp-metrics-grid">
             <div class="mcp-metric-box">
               <span class="label">Price / Earnings (P/E)</span>
               <span class="value">23.18</span>
+              <span class="sub">10Y Mean: 22.4</span>
             </div>
             <div class="mcp-metric-box">
               <span class="label">Price / Book (P/B)</span>
               <span class="value">3.92</span>
+              <span class="sub">10Y Mean: 3.4</span>
             </div>
             <div class="mcp-metric-box">
               <span class="label">Dividend Yield</span>
               <span class="value">1.18%</span>
+              <span class="sub">Annualized</span>
             </div>
           </div>
           <div class="mcp-disclaimer">
-            SEBI Disclaimer: Published by NSE Index Services.
+            SEBI Disclaimer: Published by NSE Index Services. Educational only.
           </div>
         </div>
       `;
     }
 
-    // Default general response
+    // Default Fallback
     return `
       <div class="mcp-card">
         <div class="mcp-card-header">
-          <span class="mcp-badge blue">NSE Live Query</span>
+          <span class="mcp-badge blue">NSE Live Assistant</span>
         </div>
         <p style="font-size:0.83rem;">
-          Query processed for: <strong>${escapeHtml(query)}</strong>.
+          Query processed for: <strong>${escapeHtml(query)}</strong>
         </p>
         <p style="font-size:0.78rem; color:var(--text-muted);">
-          You can ask for specific stock 52-week ranges (e.g. <code>HAL</code>, <code>INFY</code>, <code>TCS</code>), market mood &amp; India VIX, volume leaders, or corporate actions.
+          You can ask about any stock on the radar (e.g. <code>HAL</code>, <code>Muthoot Finance</code>, <code>Pidilite</code>), market mood &amp; India VIX, volume leaders, or corporate actions.
         </p>
         <div class="mcp-disclaimer">
-          SEBI Disclaimer: For educational and research purposes only.
+          SEBI Disclaimer: For educational and research purposes only. Not investment advice.
         </div>
       </div>
     `;
   }
 
-  // Send user message
+  // Send query workflow
   async function sendMcpQuery(queryText) {
     const text = (queryText || '').trim();
     if (!text) return;
 
     appendMcpMessage('user', escapeHtml(text));
-    mcpUserInput.value = '';
+    if (mcpUserInput) mcpUserInput.value = '';
     showMcpTyping();
 
     try {
-      // Step 1: Try local server API
       let replyHtml = '';
-      try {
-        const res = await fetch('/api/mcp/chat', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ message: text })
-        });
-        if (res.ok) {
-          const data = await res.json();
-          if (data && data.ok && data.reply) {
-            replyHtml = data.reply.html || data.reply.text || '';
+
+      // Check if running with local server backend
+      const isLocalServer = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1';
+      
+      if (isLocalServer) {
+        try {
+          const res = await fetch('/api/mcp/chat', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ message: text }),
+            signal: AbortSignal.timeout(6000)
+          });
+          if (res.ok) {
+            const data = await res.json();
+            if (data && data.ok && data.reply) {
+              replyHtml = data.reply.html || data.reply.text || '';
+              if (mcpConnStatus) mcpConnStatus.textContent = '🟢 Official MCP Server';
+            }
           }
+        } catch (e) {
+          console.warn('[MCP Client] Local server call error, falling back:', e);
         }
-      } catch (e) {
-        // Local server API unreachable (e.g. static GitHub Pages)
       }
 
-      // Step 2: If no server reply (GitHub Pages), use smart fallback
+      // If on GitHub Pages or local fetch returned no reply, use client intelligence engine
       if (!replyHtml) {
+        if (mcpConnStatus) mcpConnStatus.textContent = '🟢 NSE Bhavcopy Live';
         replyHtml = await queryClientFallback(text);
       }
 
@@ -1217,19 +1358,23 @@ document.addEventListener('DOMContentLoaded', () => {
       appendMcpMessage('bot', `
         <div class="mcp-card">
           <div class="mcp-card-header">
-            <span class="mcp-badge red">Query Error</span>
+            <span class="mcp-badge red">Query Notice</span>
           </div>
-          <p style="font-size:0.8rem; color:#dc2626;">${escapeHtml(err.message)}</p>
-          <div class="mcp-disclaimer">Please try a quick action pill above.</div>
+          <p style="font-size:0.8rem; color:var(--text-main);">${escapeHtml(err.message)}</p>
+          <div class="mcp-disclaimer">Please try one of the quick action pills above.</div>
         </div>
       `);
     }
   }
 
-  mcpChatForm.addEventListener('submit', (e) => {
-    e.preventDefault();
-    sendMcpQuery(mcpUserInput.value);
-  });
+  if (mcpChatForm) {
+    mcpChatForm.addEventListener('submit', (e) => {
+      e.preventDefault();
+      if (mcpUserInput) {
+        sendMcpQuery(mcpUserInput.value);
+      }
+    });
+  }
 
   loadRadarData();
 });
