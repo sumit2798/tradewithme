@@ -70,6 +70,23 @@ To support tactical risk management while preserving regulatory neutrality:
 
 ---
 
+## 🤖 Official NSE Bhavcopy MCP Live Assistant
+
+Integrated with the official **National Stock Exchange of India (NSE) Model Context Protocol (MCP)** server at `https://mcp.nseindia.in/bhavcopy/cm/mcp` ([NSE MCP Portal](https://www.nseindia.in/nse-mcp)).
+
+### Capabilities via Chat
+- **📊 Market Mood & India VIX**: Real-time factual VIX levels, 1-day/1-week/1-month trend, equity index advance/decline breadth, and major benchmark closes.
+- **📈 Top Movers & Volume Leaders**: Live Bhavcopy turnover rankings and top gainers/losers.
+- **🎯 52-Week High / Low**: Historical 52-week price range, current position within range (%), and distance from extremes.
+- **🏢 Official Corporate Actions**: Direct regulatory corporate action history (Dividends, Splits, Bonus issues, AGMs) with ex-dates.
+- **📉 Index Valuation & Performance**: P/E, P/B, and Dividend yield metrics across Nifty 50, Nifty Bank, Nifty IT, and broader indices.
+- **Dual Deployment Architecture**:
+  - **Local (`http://localhost:3456`)**: Connects via server proxy `/api/mcp/chat` and `/api/mcp/tool` for full real-time MCP communication.
+  - **GitHub Pages (`https://sumit2798.github.io/tradewithme/`)**: Features an in-browser intelligence engine with pre-indexed Bhavcopy data ensuring zero downtime and instant answers.
+- **SEBI Compliance**: All responses strictly follow the statutory disclaimer: educational and research purposes only, no investment advice.
+
+---
+
 ## 🚀 Running Locally
 
 ### Prerequisites

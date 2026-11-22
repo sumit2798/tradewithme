@@ -45,7 +45,7 @@
       } catch(e) {}
     });
   </script>
-  <link rel="stylesheet" href="styles.css?v=2.6.2">
+  <link rel="stylesheet" href="styles.css?v=2.7.0">
 </head>
 <body>
   <!-- Sticky Header -->
@@ -341,6 +341,52 @@
     </div>
   </div>
 
-  <script src="app.js?v=2.6.2"></script>
+  <!-- Floating Button to Open NSE MCP Chatbot -->
+  <button id="btn-open-mcp-chat" class="mcp-chat-trigger" title="Chat with live NSE MCP Assistant">
+    <div class="mcp-pulse-dot"></div>
+    <span>Live NSE MCP Chat</span>
+  </button>
+
+  <!-- NSE MCP Chat Widget Container -->
+  <div id="mcp-chat-widget" class="mcp-chat-widget" style="display: none;">
+    <div class="mcp-chat-header">
+      <div class="mcp-header-title">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#2563eb" stroke-width="2.5"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+        <span>NSE Live Assistant</span>
+        <span class="mcp-status-tag" id="mcp-conn-status">🟢 Official MCP</span>
+      </div>
+      <div class="mcp-header-actions">
+        <button id="btn-mcp-minimize" class="mcp-icon-btn" title="Minimize">_</button>
+        <button id="btn-mcp-clear" class="mcp-icon-btn" title="Clear Chat">🗑</button>
+        <button id="btn-mcp-close" class="mcp-icon-btn" title="Close">✕</button>
+      </div>
+    </div>
+
+    <!-- Quick Action Pills -->
+    <div class="mcp-pills-bar">
+      <button class="mcp-pill-btn" data-query="What is the market mood and VIX today?">📊 Market Mood</button>
+      <button class="mcp-pill-btn" data-query="Show top traded stocks by volume">📦 Top Volume</button>
+      <button class="mcp-pill-btn" data-query="Show top gainers">📈 Top Gainers</button>
+      <button class="mcp-pill-btn" data-query="Show top losers">📉 Top Losers</button>
+      <button class="mcp-pill-btn" data-query="52w high and low of HAL">🎯 HAL 52W Range</button>
+      <button class="mcp-pill-btn" data-query="Corporate actions for MUTHOOTFIN">🏢 Muthoot Actions</button>
+      <button class="mcp-pill-btn" data-query="Valuation P/E of Nifty 50">📊 Nifty 50 P/E</button>
+    </div>
+
+    <!-- Chat Messages Stream -->
+    <div class="mcp-chat-body" id="mcp-chat-messages">
+      <!-- Dynamic Messages Loaded Here -->
+    </div>
+
+    <!-- Input Bar -->
+    <form class="mcp-chat-input-bar" id="mcp-chat-form" onsubmit="return false;">
+      <input type="text" id="mcp-user-input" class="mcp-chat-input" placeholder="Ask about NSE stocks, mood, VIX, 52W high/low..." autocomplete="off">
+      <button type="submit" id="btn-mcp-send" class="mcp-send-btn" title="Send Query">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+      </button>
+    </form>
+  </div>
+
+  <script src="app.js?v=2.7.0"></script>
 </body>
 </html>

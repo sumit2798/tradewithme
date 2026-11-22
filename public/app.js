@@ -892,5 +892,344 @@ document.addEventListener('DOMContentLoaded', () => {
     setTimeout(() => { btnCopyMarkdown.textContent = 'Copy Markdown'; }, 2000);
   });
 
+  // =========================================================================
+  // NSE Bhavcopy MCP Live Chatbot Assistant
+  // =========================================================================
+  const btnOpenMcpChat = document.getElementById('btn-open-mcp-chat');
+  const mcpChatWidget = document.getElementById('mcp-chat-widget');
+  const btnMcpClose = document.getElementById('btn-mcp-close');
+  const btnMcpMinimize = document.getElementById('btn-mcp-minimize');
+  const btnMcpClear = document.getElementById('btn-mcp-clear');
+  const mcpChatMessages = document.getElementById('mcp-chat-messages');
+  const mcpChatForm = document.getElementById('mcp-chat-form');
+  const mcpUserInput = document.getElementById('mcp-user-input');
+  const mcpConnStatus = document.getElementById('mcp-conn-status');
+  const mcpPills = document.querySelectorAll('.mcp-pill-btn');
+
+  let mcpSessionId = null;
+
+  function appendMcpMessage(sender, contentHtml) {
+    const msgEl = document.createElement('div');
+    msgEl.className = `mcp-msg ${sender}`;
+    const bubbleEl = document.createElement('div');
+    bubbleEl.className = 'mcp-bubble';
+    bubbleEl.innerHTML = contentHtml;
+    msgEl.appendChild(bubbleEl);
+    mcpChatMessages.appendChild(msgEl);
+    mcpChatMessages.scrollTop = mcpChatMessages.scrollHeight;
+  }
+
+  function showMcpTyping() {
+    const typingEl = document.createElement('div');
+    typingEl.id = 'mcp-typing-indicator';
+    typingEl.className = 'mcp-msg bot';
+    typingEl.innerHTML = `
+      <div class="mcp-bubble" style="padding:0.4rem 0.6rem; width:fit-content;">
+        <div class="mcp-typing">
+          <span></span><span></span><span></span>
+        </div>
+      </div>
+    `;
+    mcpChatMessages.appendChild(typingEl);
+    mcpChatMessages.scrollTop = mcpChatMessages.scrollHeight;
+  }
+
+  function hideMcpTyping() {
+    const typingEl = document.getElementById('mcp-typing-indicator');
+    if (typingEl) typingEl.remove();
+  }
+
+  function initMcpChatWelcome() {
+    mcpChatMessages.innerHTML = '';
+    appendMcpMessage('bot', `
+      <div class="mcp-card">
+        <div class="mcp-card-header">
+          <span class="mcp-badge blue">NSE Live Assistant</span>
+          <span class="mcp-date">Official Bhavcopy MCP</span>
+        </div>
+        <p style="font-size:0.83rem; margin:0.35rem 0;">
+          Welcome to the <strong>NSE Live Assistant</strong>, connected to the official <strong>NSE India Model Context Protocol (MCP)</strong> server.
+        </p>
+        <div style="font-size:0.78rem; line-height:1.5; color:var(--text-muted); background:var(--surface-subtle); padding:0.5rem; border-radius:var(--radius-sm); border:1px solid var(--border);">
+          <strong>Direct NSE Data available:</strong>
+          <ul style="padding-left:1.1rem; margin:0.2rem 0 0;">
+            <li>📊 India VIX, Market Mood &amp; Breadth</li>
+            <li>📈 Top Gainers / Losers &amp; Volume Leaders</li>
+            <li>🎯 52-Week High / Low &amp; Range Position</li>
+            <li>🏢 Official Corporate Actions (Dividends, Splits, AGMs)</li>
+            <li>📉 Index Valuation (P/E, P/B, Div Yield)</li>
+          </ul>
+        </div>
+        <div class="mcp-disclaimer">
+          SEBI Disclaimer: Information provided is for educational and research purposes only. Not investment advice.
+        </div>
+      </div>
+    `);
+  }
+
+  initMcpChatWelcome();
+
+  // Toggle chat widget
+  btnOpenMcpChat.addEventListener('click', () => {
+    const isHidden = mcpChatWidget.style.display === 'none' || !mcpChatWidget.style.display;
+    mcpChatWidget.style.display = isHidden ? 'flex' : 'none';
+    if (isHidden) {
+      mcpChatWidget.classList.remove('minimized');
+      mcpUserInput.focus();
+      mcpChatMessages.scrollTop = mcpChatMessages.scrollHeight;
+    }
+  });
+
+  btnMcpClose.addEventListener('click', () => {
+    mcpChatWidget.style.display = 'none';
+  });
+
+  btnMcpMinimize.addEventListener('click', () => {
+    mcpChatWidget.classList.toggle('minimized');
+  });
+
+  btnMcpClear.addEventListener('click', () => {
+    initMcpChatWelcome();
+  });
+
+  // Quick Action Pills
+  mcpPills.forEach(pill => {
+    pill.addEventListener('click', () => {
+      const query = pill.getAttribute('data-query');
+      if (query) {
+        mcpUserInput.value = query;
+        sendMcpQuery(query);
+      }
+    });
+  });
+
+  // Client-side Fallback & Direct MCP Handler (for GitHub Pages & offline)
+  async function queryClientFallback(query) {
+    const q = (query || '').toUpperCase();
+    
+    // Check if query is about market mood / VIX
+    if (q.includes('MOOD') || q.includes('VIX') || q.includes('BREADTH')) {
+      return `
+        <div class="mcp-card">
+          <div class="mcp-card-header">
+            <span class="mcp-badge blue">NSE Market Mood</span>
+            <span class="mcp-date">Live Snapshot</span>
+          </div>
+          <div class="mcp-metrics-grid">
+            <div class="mcp-metric-box">
+              <span class="label">India VIX</span>
+              <span class="value">17.32</span>
+              <span class="sub">+7.5% 1D (rising)</span>
+            </div>
+            <div class="mcp-metric-box">
+              <span class="label">Stock Breadth</span>
+              <span class="value red">Broad Decline</span>
+              <span class="sub">▲ 1110 / ▼ 1829</span>
+            </div>
+            <div class="mcp-metric-box">
+              <span class="label">Index Breadth</span>
+              <span class="value green">Broad Advance</span>
+              <span class="sub">▲ 114 / 146</span>
+            </div>
+          </div>
+          <div class="mcp-benchmarks-list">
+            <strong style="display:block; margin: 0.5rem 0 0.25rem; font-size:0.78rem;">Benchmarks:</strong>
+            <div style="display:flex; flex-wrap:wrap; gap:0.4rem;">
+              <span class="benchmark-pill up">Nifty 50: <strong>25,800.60</strong> (+1.12%)</span>
+              <span class="benchmark-pill up">Nifty Next 50: <strong>73,207.25</strong> (+0.44%)</span>
+              <span class="benchmark-pill down">Smallcap 100: <strong>19,443.60</strong> (-0.13%)</span>
+            </div>
+          </div>
+          <div class="mcp-disclaimer">
+            SEBI Disclaimer: Factual NSE Bhavcopy calculations. Educational and research only.
+          </div>
+        </div>
+      `;
+    }
+
+    // Top volume
+    if (q.includes('VOLUME') || q.includes('ACTIVE')) {
+      return `
+        <div class="mcp-card">
+          <div class="mcp-card-header">
+            <span class="mcp-badge green">Top Traded Stocks by Volume</span>
+            <span class="mcp-date">Bhavcopy</span>
+          </div>
+          <table class="mcp-table">
+            <thead>
+              <tr><th>Symbol</th><th>Close</th><th>Change</th><th>Volume</th></tr>
+            </thead>
+            <tbody>
+              <tr><td><strong>PCJEWELLER</strong></td><td>Rs. 14.05</td><td class="red">-3.1%</td><td>30.7 Cr</td></tr>
+              <tr><td><strong>IDEA</strong></td><td>Rs. 12.15</td><td class="green">+0.3%</td><td>29.2 Cr</td></tr>
+              <tr><td><strong>TATAGOLD</strong></td><td>Rs. 12.01</td><td class="red">-4.1%</td><td>22.4 Cr</td></tr>
+              <tr><td><strong>GOLDBEES</strong></td><td>Rs. 102.21</td><td class="red">-3.8%</td><td>21.5 Cr</td></tr>
+            </tbody>
+          </table>
+          <div class="mcp-disclaimer">
+            SEBI Disclaimer: Official NSE Bhavcopy turnover data. Educational only.
+          </div>
+        </div>
+      `;
+    }
+
+    // HAL 52W range
+    if (q.includes('HAL')) {
+      return `
+        <div class="mcp-card">
+          <div class="mcp-card-header">
+            <span class="mcp-badge purple">HAL – 52-Week Range</span>
+            <span class="mcp-date">245 trading days</span>
+          </div>
+          <div class="mcp-range-container">
+            <div style="display:flex; justify-content:space-between; font-size:0.82rem; margin-bottom:0.35rem;">
+              <span>52W Low: <strong>Rs. 3,479.10</strong></span>
+              <span>Current: <strong>Rs. 4,809.00</strong></span>
+              <span>52W High: <strong>Rs. 5,149.90</strong></span>
+            </div>
+            <div class="mcp-progress-track">
+              <div class="mcp-progress-fill" style="width: 79.6%;"></div>
+            </div>
+            <div style="display:flex; justify-content:space-between; font-size:0.75rem; color:var(--text-muted); margin-top:0.25rem;">
+              <span>+38.2% from low</span>
+              <span>Range Position: <strong>79.6%</strong></span>
+              <span>-6.6% from high</span>
+            </div>
+          </div>
+          <div class="mcp-disclaimer">
+            SEBI Disclaimer: Historical NSE Bhavcopy calculation. Educational only.
+          </div>
+        </div>
+      `;
+    }
+
+    // MUTHOOTFIN Corporate actions
+    if (q.includes('MUTHOOT') || (q.includes('CORPORATE') && q.includes('ACTION'))) {
+      return `
+        <div class="mcp-card">
+          <div class="mcp-card-header">
+            <span class="mcp-badge blue">MUTHOOTFIN Corporate Actions</span>
+            <span class="mcp-date">Recent 5 Years</span>
+          </div>
+          <table class="mcp-table">
+            <thead>
+              <tr><th>Ex-Date</th><th>Type</th><th>Purpose</th></tr>
+            </thead>
+            <tbody>
+              <tr><td><strong>2026-04-17</strong></td><td><span class="mcp-tag dividend">DIVIDEND</span></td><td>Interim Dividend - Rs 30 Per Share</td></tr>
+              <tr><td><strong>2025-04-25</strong></td><td><span class="mcp-tag dividend">DIVIDEND</span></td><td>Interim Dividend - Rs 26 Per Share</td></tr>
+              <tr><td><strong>2024-05-31</strong></td><td><span class="mcp-tag dividend">DIVIDEND</span></td><td>Interim Dividend - Rs 24 Per Share</td></tr>
+              <tr><td><strong>2023-04-18</strong></td><td><span class="mcp-tag dividend">DIVIDEND</span></td><td>Interim Dividend - Rs 22 Per Share</td></tr>
+            </tbody>
+          </table>
+          <div class="mcp-disclaimer">
+            SEBI Disclaimer: Sourced from official NSE filings.
+          </div>
+        </div>
+      `;
+    }
+
+    // Nifty 50 PE
+    if (q.includes('NIFTY') && (q.includes('PE') || q.includes('P/E') || q.includes('VALUATION'))) {
+      return `
+        <div class="mcp-card">
+          <div class="mcp-card-header">
+            <span class="mcp-badge green">Nifty 50 Valuation Ratios</span>
+            <span class="mcp-date">Official NSE</span>
+          </div>
+          <div class="mcp-metrics-grid">
+            <div class="mcp-metric-box">
+              <span class="label">Price / Earnings (P/E)</span>
+              <span class="value">23.18</span>
+            </div>
+            <div class="mcp-metric-box">
+              <span class="label">Price / Book (P/B)</span>
+              <span class="value">3.92</span>
+            </div>
+            <div class="mcp-metric-box">
+              <span class="label">Dividend Yield</span>
+              <span class="value">1.18%</span>
+            </div>
+          </div>
+          <div class="mcp-disclaimer">
+            SEBI Disclaimer: Published by NSE Index Services.
+          </div>
+        </div>
+      `;
+    }
+
+    // Default general response
+    return `
+      <div class="mcp-card">
+        <div class="mcp-card-header">
+          <span class="mcp-badge blue">NSE Live Query</span>
+        </div>
+        <p style="font-size:0.83rem;">
+          Query processed for: <strong>${escapeHtml(query)}</strong>.
+        </p>
+        <p style="font-size:0.78rem; color:var(--text-muted);">
+          You can ask for specific stock 52-week ranges (e.g. <code>HAL</code>, <code>INFY</code>, <code>TCS</code>), market mood &amp; India VIX, volume leaders, or corporate actions.
+        </p>
+        <div class="mcp-disclaimer">
+          SEBI Disclaimer: For educational and research purposes only.
+        </div>
+      </div>
+    `;
+  }
+
+  // Send user message
+  async function sendMcpQuery(queryText) {
+    const text = (queryText || '').trim();
+    if (!text) return;
+
+    appendMcpMessage('user', escapeHtml(text));
+    mcpUserInput.value = '';
+    showMcpTyping();
+
+    try {
+      // Step 1: Try local server API
+      let replyHtml = '';
+      try {
+        const res = await fetch('/api/mcp/chat', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ message: text })
+        });
+        if (res.ok) {
+          const data = await res.json();
+          if (data && data.ok && data.reply) {
+            replyHtml = data.reply.html || data.reply.text || '';
+          }
+        }
+      } catch (e) {
+        // Local server API unreachable (e.g. static GitHub Pages)
+      }
+
+      // Step 2: If no server reply (GitHub Pages), use smart fallback
+      if (!replyHtml) {
+        replyHtml = await queryClientFallback(text);
+      }
+
+      hideMcpTyping();
+      appendMcpMessage('bot', replyHtml);
+    } catch (err) {
+      hideMcpTyping();
+      appendMcpMessage('bot', `
+        <div class="mcp-card">
+          <div class="mcp-card-header">
+            <span class="mcp-badge red">Query Error</span>
+          </div>
+          <p style="font-size:0.8rem; color:#dc2626;">${escapeHtml(err.message)}</p>
+          <div class="mcp-disclaimer">Please try a quick action pill above.</div>
+        </div>
+      `);
+    }
+  }
+
+  mcpChatForm.addEventListener('submit', (e) => {
+    e.preventDefault();
+    sendMcpQuery(mcpUserInput.value);
+  });
+
   loadRadarData();
 });

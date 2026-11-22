@@ -1,7 +1,7 @@
 {
   "meta": {
-    "last_updated": "21 Nov 2026, 14:55 IST",
-    "verified_on": "21 Nov 2026",
+    "last_updated": "22 Nov 2026, 20:28 IST",
+    "verified_on": "22 Nov 2026",
     "run_type": "08:00",
     "rule_version": "NSE/BSE Main Board Radar 2.5"
   },
@@ -273,18 +273,13 @@
   },
   "one_week_overview": [
     {
-      "date": "2026-11-21",
-      "dayName": "Saturday (Today)",
-      "items": []
-    },
-    {
       "date": "2026-11-22",
-      "dayName": "Sunday (Tomorrow)",
+      "dayName": "Sunday (Today)",
       "items": []
     },
     {
       "date": "2026-11-23",
-      "dayName": "Monday",
+      "dayName": "Monday (Tomorrow)",
       "items": [
         {
           "name": "Jupiter Wagons Limited",
@@ -358,6 +353,11 @@
     {
       "date": "2026-11-28",
       "dayName": "Saturday",
+      "items": []
+    },
+    {
+      "date": "2026-11-29",
+      "dayName": "Sunday",
       "items": []
     }
   ],

@@ -1,6 +1,6 @@
 # Pre-Results Radar (NSE/BSE Main Board)
-**Last Updated**: 21 Nov 2026, 14:55 IST
-**Verified on**: 21 Nov 2026
+**Last Updated**: 22 Nov 2026, 20:28 IST
+**Verified on**: 22 Nov 2026
 
 > Absolute Rules Applied: No prices. No tickers. No internal scores. No buy/sell recommendations. Empty sections remain unpadded.
 
@@ -167,13 +167,10 @@ Results date: 23 Nov 2026
 
 ## One-Week Overview by Day
 
-### Saturday (Today) (2026-11-21)
+### Sunday (Today) (2026-11-22)
 - No qualifying main-board names scheduled.
 
-### Sunday (Tomorrow) (2026-11-22)
-- No qualifying main-board names scheduled.
-
-### Monday (2026-11-23)
+### Monday (Tomorrow) (2026-11-23)
 - **Jupiter Wagons Limited** [A – Very Positive]: Wagon manufacturing expansion with backward integrated braking units.
 - **Eicher Motors Limited** [B – Decent Positive]: Royal Enfield domestic resilience coupled with steady VECV margins.
 - **Amber Enterprises India Limited** [B – Decent Positive]: Component manufacturing scale in RAC and electronics assemblies.
@@ -197,6 +194,9 @@ Results date: 23 Nov 2026
 ### Saturday (2026-11-28)
 - No qualifying main-board names scheduled.
 
+### Sunday (2026-11-29)
+- No qualifying main-board names scheduled.
+
 ## Changes Since Yesterday
 
 - [ADDED] **Jupiter Wagons Limited**: Upgraded to Category A on confirmed railway brake integration order and board filing.
@@ -214,4 +214,4 @@ Results date: 23 Nov 2026
 - **Hero MotoCorp Limited** (Automobiles): Already reported on 28 Oct 2026. Pruned from active radar.
 
 ---
-*Verified on: 21 Nov 2026 | Pre-Results Radar Engine*
+*Verified on: 22 Nov 2026 | Pre-Results Radar Engine*

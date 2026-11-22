@@ -5,6 +5,7 @@ import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { RadarEngine } from './src/engine.js';
 import { RadarScheduler } from './src/scheduler.js';
+import { NseMcpClient } from './src/nse_mcp.js';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -16,6 +17,8 @@ engine.seedInitialData();
 
 const scheduler = new RadarScheduler(engine);
 scheduler.start();
+
+const nseMcp = new NseMcpClient();
 
 const mimeTypes = {
   '.html': 'text/html; charset=utf-8',
@@ -146,6 +149,46 @@ const server = http.createServer((req, res) => {
       } catch (err) {
         sendJSON(res, { error: err.message }, 400);
       }
+    });
+    return;
+  }
+
+  // Official NSE India Bhavcopy MCP Chat & Query APIs
+  if (pathname === '/api/mcp/chat' && req.method === 'POST') {
+    let body = '';
+    req.on('data', chunk => { body += chunk; });
+    req.on('end', async () => {
+      try {
+        const { message } = JSON.parse(body || '{}');
+        const reply = await nseMcp.handleQuery(message);
+        sendJSON(res, { ok: true, reply });
+      } catch (err) {
+        sendJSON(res, { ok: false, error: err.message }, 500);
+      }
+    });
+    return;
+  }
+
+  if (pathname === '/api/mcp/tool' && req.method === 'POST') {
+    let body = '';
+    req.on('data', chunk => { body += chunk; });
+    req.on('end', async () => {
+      try {
+        const { tool, args } = JSON.parse(body || '{}');
+        const result = await nseMcp.callTool(tool, args || {});
+        sendJSON(res, { ok: true, result });
+      } catch (err) {
+        sendJSON(res, { ok: false, error: err.message }, 500);
+      }
+    });
+    return;
+  }
+
+  if (pathname === '/api/mcp/tools' && req.method === 'GET') {
+    nseMcp.listTools().then(tools => {
+      sendJSON(res, { ok: true, tools });
+    }).catch(err => {
+      sendJSON(res, { ok: false, error: err.message }, 500);
     });
     return;
   }
