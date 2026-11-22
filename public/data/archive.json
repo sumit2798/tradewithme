@@ -1,6 +1,424 @@
 [
   {
     "run_date": "2026-11-22",
+    "run_time_ist": "21:00 IST",
+    "run_type": "08:00",
+    "data": {
+      "meta": {
+        "last_updated": "22 Nov 2026, 21:00 IST",
+        "verified_on": "22 Nov 2026",
+        "run_type": "08:00",
+        "rule_version": "NSE/BSE Main Board Radar 2.5"
+      },
+      "categories": {
+        "A": [
+          {
+            "name": "Hindustan Aeronautics Limited",
+            "results_date_formatted": "24 Nov 2026",
+            "results_date": "2026-11-24",
+            "sector": "Aerospace & Defence",
+            "mcap_list": "List 1",
+            "verified_by": "Exchange filing",
+            "reason_qualitative": "High execution velocity across LCA Tejas Mk1A deliveries, expanding domestic MRO share, and multi-year order backlog exceeding Rs. 94,000 cr.",
+            "key_number": "Rs. 1,480 cr est. consolidated PAT (+21% YoY est.)",
+            "catalyst_or_risk": "F404 engine dispatch schedule from international OEM partner.",
+            "one_line_summary": "Defence manufacturing leader with Rs. 94,000 cr backlog and sustained execution run-rate.",
+            "event_invalidation": "Consolidated PAT growth falling below +12% YoY, or commentary indicating deferral of Tejas delivery milestones into next fiscal year.",
+            "volatility_buffer": "±4.2% to ±5.5% historical 1-day earnings implied move",
+            "technical_anchor": "Structural invalidation if daily closing violates the multi-week pre-results consolidation base / 50-day moving average zone."
+          },
+          {
+            "name": "Muthoot Finance Limited",
+            "results_date_formatted": "24 Nov 2026",
+            "results_date": "2026-11-24",
+            "sector": "Non-Banking Financials (NBFC)",
+            "mcap_list": "List 1",
+            "verified_by": "Exchange filing",
+            "reason_qualitative": "Favorable prevailing gold prices expanding loan-to-value safety buffer and driving double-digit loan book disbursement expansion across rural and semi-urban hubs.",
+            "key_number": "Rs. 1,290 cr est. consolidated net profit (+19% YoY est.)",
+            "catalyst_or_risk": "Regulatory compliance parameters on cash disbursement limits and non-gold subsidiary diversification.",
+            "one_line_summary": "Gold financing expansion backed by elevated collateral values and steady branch productivity.",
+            "event_invalidation": "AUM loan growth slowing below 12% YoY, or sharp margin compression (> 40 bps QoQ) from elevated cost of funds.",
+            "volatility_buffer": "±3.8% to ±4.8% historical 1-day earnings implied move",
+            "technical_anchor": "Structural invalidation if price slices below the prior higher-low swing shelf on earnings reaction volume."
+          },
+          {
+            "name": "Jupiter Wagons Limited",
+            "results_date_formatted": "23 Nov 2026",
+            "results_date": "2026-11-23",
+            "sector": "Railways & Capital Goods",
+            "mcap_list": "List 1",
+            "verified_by": "Exchange filing",
+            "reason_qualitative": "Surging railway freight wagon delivery run-rate, backward integration into brake assemblies, and fast-growing electric commercial vehicle body division.",
+            "key_number": "Rs. 985 cr est. operational revenue (+31% YoY est.)",
+            "catalyst_or_risk": "Specialty steel price trends and Indian Railways wagon delivery inspection clearances.",
+            "one_line_summary": "Wagon manufacturing expansion with backward integrated braking units.",
+            "event_invalidation": "Quarterly operating EBITDA margin dipping below 12.5% or wagon delivery dispatches decelerating under 750 units/month.",
+            "volatility_buffer": "±5.5% to ±7.0% historical 1-day earnings implied move",
+            "technical_anchor": "Structural invalidation upon a decisive breakdown beneath the 20-day exponential moving average band."
+          }
+        ],
+        "B": [
+          {
+            "name": "Eicher Motors Limited",
+            "results_date_formatted": "23 Nov 2026",
+            "results_date": "2026-11-23",
+            "sector": "Automobiles",
+            "mcap_list": "List 1",
+            "verified_by": "Exchange filing",
+            "reason_qualitative": "Resilient middleweight motorcycle market leadership with festive volume traction in updated Classic 350 lineup and healthy commercial vehicle joint-venture operating margins.",
+            "key_number": "Rs. 1,120 cr est. consolidated PAT (+10.5% YoY est.)",
+            "catalyst_or_risk": "Domestic competitive launches in the 400cc motorcycle segment and international export volume recovery.",
+            "one_line_summary": "Royal Enfield domestic resilience coupled with steady VECV margins.",
+            "event_invalidation": "Consolidated operating EBITDA margin slipping below 25.5%, or international export volumes declining > 10% YoY.",
+            "volatility_buffer": "±3.5% to ±4.5% historical 1-day earnings implied move",
+            "technical_anchor": "Structural invalidation if price fails to defend the pre-earnings trading floor / 100-DMA support shelf."
+          },
+          {
+            "name": "Alkem Laboratories Limited",
+            "results_date_formatted": "25 Nov 2026",
+            "results_date": "2026-11-25",
+            "sector": "Pharmaceuticals",
+            "mcap_list": "List 1",
+            "verified_by": "Exchange filing",
+            "reason_qualitative": "Strong acute segment dominance in domestic anti-infective formulations paired with stabilizing generic pricing in the US oral solid portfolio.",
+            "key_number": "Rs. 595 cr est. net profit (+13% YoY est.)",
+            "catalyst_or_risk": "US FDA regulatory inspection clearance across key active pharmaceutical ingredient facilities.",
+            "one_line_summary": "Formulations strength in acute therapies backed by stabilizing US price realizations.",
+            "event_invalidation": "Domestic formulations sales growth falling below 7% YoY, or an adverse FDA Form 483 with severe data integrity observations.",
+            "volatility_buffer": "±3.2% to ±4.2% historical 1-day earnings implied move",
+            "technical_anchor": "Structural invalidation on closing below the recent swing demand zone."
+          },
+          {
+            "name": "Amber Enterprises India Limited",
+            "results_date_formatted": "23 Nov 2026",
+            "results_date": "2026-11-23",
+            "sector": "Consumer Electricals & Electronics",
+            "mcap_list": "List 1",
+            "verified_by": "Multi-calendar",
+            "reason_qualitative": "Contract manufacturing scale in room air conditioning units and high-speed PCB assembly expansion under central electronics PLI programs.",
+            "key_number": "Rs. 1,420 cr est. quarterly revenue (+28% YoY est.)",
+            "catalyst_or_risk": "Seasonal working capital inventory build ahead of upcoming summer distribution channels.",
+            "one_line_summary": "Component manufacturing scale in RAC and electronics assemblies.",
+            "event_invalidation": "Operating profit margins missing estimates by > 120 bps due to input cost spikes.",
+            "volatility_buffer": "±5.0% to ±6.5% historical 1-day earnings implied move",
+            "technical_anchor": "Structural invalidation upon breakdown of the rising channel trendline."
+          },
+          {
+            "name": "Grasim Industries Limited",
+            "results_date_formatted": "23 Nov 2026",
+            "results_date": "2026-11-23",
+            "sector": "Diversified Materials",
+            "mcap_list": "List 1",
+            "verified_by": "Exchange filing",
+            "reason_qualitative": "Stable operating EBITDA in viscose staple fiber and specialty caustic chemicals offsetting initial gestation marketing spend in decorative paints.",
+            "key_number": "Rs. 4,150 cr est. standalone revenue (+8% YoY est.)",
+            "catalyst_or_risk": "Competitive rebate intensity and dealer network ramp-up across decorative paints.",
+            "one_line_summary": "Chemicals and fiber cash generation supporting decorative paints rollout.",
+            "event_invalidation": "Chemicals segment operating profit dropping > 15% QoQ or paint plant ramp-up capex expanding without revenue milestones.",
+            "volatility_buffer": "±3.0% to ±4.0% historical 1-day earnings implied move",
+            "technical_anchor": "Structural invalidation below the major horizontal multi-month support shelf."
+          },
+          {
+            "name": "J. Kumar Infraprojects Limited",
+            "results_date_formatted": "23 Nov 2026",
+            "results_date": "2026-11-23",
+            "sector": "Infrastructure & Construction",
+            "mcap_list": "List 2",
+            "verified_by": "Exchange filing",
+            "reason_qualitative": "High execution velocity across urban transit flyovers, elevated metro corridors, and water transmission packages with order backlog over 3.2x trailing billings.",
+            "key_number": "Rs. 1,310 cr est. quarterly revenue (+14% YoY est.)",
+            "catalyst_or_risk": "Billing milestone approvals from municipal corporation agencies post-monsoon resumption.",
+            "one_line_summary": "Metro and civil infrastructure execution with healthy order-book-to-bill visibility.",
+            "event_invalidation": "Quarterly revenue execution falling below Rs. 1,180 cr or order backlog depleting without fresh L1 announcements.",
+            "volatility_buffer": "±4.5% to ±6.0% historical 1-day earnings implied move",
+            "technical_anchor": "Structural invalidation if daily close breaks under the 50-day moving average support anchor."
+          }
+        ],
+        "C": [
+          {
+            "name": "Jupiter Wagons Limited",
+            "results_date_formatted": "23 Nov 2026",
+            "results_date": "2026-11-23",
+            "sector": "Railways & Capital Goods",
+            "mcap_list": "List 1",
+            "verified_by": "Exchange filing",
+            "reason_qualitative": "Surging railway freight wagon delivery run-rate, backward integration into brake assemblies, and fast-growing electric commercial vehicle body division.",
+            "key_number": "Rs. 985 cr est. operational revenue (+31% YoY est.)",
+            "catalyst_or_risk": "Specialty steel price trends and Indian Railways wagon delivery inspection clearances.",
+            "one_line_summary": "Wagon manufacturing expansion with backward integrated braking units.",
+            "event_invalidation": "Quarterly operating EBITDA margin dipping below 12.5% or wagon delivery dispatches decelerating under 750 units/month.",
+            "volatility_buffer": "±5.5% to ±7.0% historical 1-day earnings implied move",
+            "technical_anchor": "Structural invalidation upon a decisive breakdown beneath the 20-day exponential moving average band."
+          },
+          {
+            "name": "Eicher Motors Limited",
+            "results_date_formatted": "23 Nov 2026",
+            "results_date": "2026-11-23",
+            "sector": "Automobiles",
+            "mcap_list": "List 1",
+            "verified_by": "Exchange filing",
+            "reason_qualitative": "Resilient middleweight motorcycle market leadership with festive volume traction in updated Classic 350 lineup and healthy commercial vehicle joint-venture operating margins.",
+            "key_number": "Rs. 1,120 cr est. consolidated PAT (+10.5% YoY est.)",
+            "catalyst_or_risk": "Domestic competitive launches in the 400cc motorcycle segment and international export volume recovery.",
+            "one_line_summary": "Royal Enfield domestic resilience coupled with steady VECV margins.",
+            "event_invalidation": "Consolidated operating EBITDA margin slipping below 25.5%, or international export volumes declining > 10% YoY.",
+            "volatility_buffer": "±3.5% to ±4.5% historical 1-day earnings implied move",
+            "technical_anchor": "Structural invalidation if price fails to defend the pre-earnings trading floor / 100-DMA support shelf."
+          },
+          {
+            "name": "Amber Enterprises India Limited",
+            "results_date_formatted": "23 Nov 2026",
+            "results_date": "2026-11-23",
+            "sector": "Consumer Electricals & Electronics",
+            "mcap_list": "List 1",
+            "verified_by": "Multi-calendar",
+            "reason_qualitative": "Contract manufacturing scale in room air conditioning units and high-speed PCB assembly expansion under central electronics PLI programs.",
+            "key_number": "Rs. 1,420 cr est. quarterly revenue (+28% YoY est.)",
+            "catalyst_or_risk": "Seasonal working capital inventory build ahead of upcoming summer distribution channels.",
+            "one_line_summary": "Component manufacturing scale in RAC and electronics assemblies.",
+            "event_invalidation": "Operating profit margins missing estimates by > 120 bps due to input cost spikes.",
+            "volatility_buffer": "±5.0% to ±6.5% historical 1-day earnings implied move",
+            "technical_anchor": "Structural invalidation upon breakdown of the rising channel trendline."
+          },
+          {
+            "name": "Grasim Industries Limited",
+            "results_date_formatted": "23 Nov 2026",
+            "results_date": "2026-11-23",
+            "sector": "Diversified Materials",
+            "mcap_list": "List 1",
+            "verified_by": "Exchange filing",
+            "reason_qualitative": "Stable operating EBITDA in viscose staple fiber and specialty caustic chemicals offsetting initial gestation marketing spend in decorative paints.",
+            "key_number": "Rs. 4,150 cr est. standalone revenue (+8% YoY est.)",
+            "catalyst_or_risk": "Competitive rebate intensity and dealer network ramp-up across decorative paints.",
+            "one_line_summary": "Chemicals and fiber cash generation supporting decorative paints rollout.",
+            "event_invalidation": "Chemicals segment operating profit dropping > 15% QoQ or paint plant ramp-up capex expanding without revenue milestones.",
+            "volatility_buffer": "±3.0% to ±4.0% historical 1-day earnings implied move",
+            "technical_anchor": "Structural invalidation below the major horizontal multi-month support shelf."
+          },
+          {
+            "name": "J. Kumar Infraprojects Limited",
+            "results_date_formatted": "23 Nov 2026",
+            "results_date": "2026-11-23",
+            "sector": "Infrastructure & Construction",
+            "mcap_list": "List 2",
+            "verified_by": "Exchange filing",
+            "reason_qualitative": "High execution velocity across urban transit flyovers, elevated metro corridors, and water transmission packages with order backlog over 3.2x trailing billings.",
+            "key_number": "Rs. 1,310 cr est. quarterly revenue (+14% YoY est.)",
+            "catalyst_or_risk": "Billing milestone approvals from municipal corporation agencies post-monsoon resumption.",
+            "one_line_summary": "Metro and civil infrastructure execution with healthy order-book-to-bill visibility.",
+            "event_invalidation": "Quarterly revenue execution falling below Rs. 1,180 cr or order backlog depleting without fresh L1 announcements.",
+            "volatility_buffer": "±4.5% to ±6.0% historical 1-day earnings implied move",
+            "technical_anchor": "Structural invalidation if daily close breaks under the 50-day moving average support anchor."
+          },
+          {
+            "name": "Nava Limited",
+            "results_date_formatted": "23 Nov 2026",
+            "results_date": "2026-11-23",
+            "sector": "Power & Metals",
+            "mcap_list": "List 2",
+            "verified_by": "Exchange filing",
+            "reason_qualitative": "Operational recovery following plant maintenance overhaul, with verified sovereign utility cash remittances and domestic ferro-alloy smelter capacity restoration.",
+            "key_number": "Rs. 310 cr est. operational EBITDA (+24% QoQ recovery est.)",
+            "catalyst_or_risk": "Currency repatriation regulations and thermal coal logistics costs.",
+            "one_line_summary": "Plant overhaul completed with sovereign utility debt settlement milestones underway.",
+            "event_invalidation": "Halt or delay in sovereign utility cash transfers or EBITDA recovery coming in under Rs. 270 cr.",
+            "volatility_buffer": "±6.0% to ±8.5% historical 1-day earnings implied move",
+            "technical_anchor": "Structural invalidation upon loss of the multi-week base low."
+          },
+          {
+            "name": "Reliance Power Limited",
+            "results_date_formatted": "23 Nov 2026",
+            "results_date": "2026-11-23",
+            "sector": "Power Generation",
+            "mcap_list": "List 2",
+            "verified_by": "Exchange filing",
+            "reason_qualitative": "Debt reduction efforts underway, but ongoing operational losses in standalone utilities.",
+            "key_number": "Rs. -97.8 cr net loss in latest quarter",
+            "catalyst_or_risk": "Ongoing debt restructuring and legal arbitration settlements.",
+            "one_line_summary": "Excluded due to quarterly net loss.",
+            "event_invalidation": null,
+            "volatility_buffer": null,
+            "technical_anchor": null
+          },
+          {
+            "name": "Vodafone Idea Limited",
+            "results_date_formatted": "23 Nov 2026",
+            "results_date": "2026-11-23",
+            "sector": "Telecommunications",
+            "mcap_list": "List 1",
+            "verified_by": "Exchange filing",
+            "reason_qualitative": "4G/5G vendor equipment capex announced, but substantial negative cash flows and debt overhang persist.",
+            "key_number": "Rs. -6,432 cr net loss in latest quarter",
+            "catalyst_or_risk": "Bank debt tie-ups and regulatory AGR liability relief hearings.",
+            "one_line_summary": "Excluded due to heavy ongoing net losses.",
+            "event_invalidation": null,
+            "volatility_buffer": null,
+            "technical_anchor": null
+          }
+        ],
+        "D": [
+          {
+            "name": "Nava Limited",
+            "results_date_formatted": "23 Nov 2026",
+            "results_date": "2026-11-23",
+            "sector": "Power & Metals",
+            "mcap_list": "List 2",
+            "verified_by": "Exchange filing",
+            "reason_qualitative": "Operational recovery following plant maintenance overhaul, with verified sovereign utility cash remittances and domestic ferro-alloy smelter capacity restoration.",
+            "key_number": "Rs. 310 cr est. operational EBITDA (+24% QoQ recovery est.)",
+            "catalyst_or_risk": "Currency repatriation regulations and thermal coal logistics costs.",
+            "one_line_summary": "Plant overhaul completed with sovereign utility debt settlement milestones underway.",
+            "turnaround_evidence": "Maamba Collieries project loan debt retirement milestone achieved, normalized power plant availability factor post-overhaul, and verified regular sovereign cash remittances confirmed in exchange disclosures.",
+            "event_invalidation": "Halt or delay in sovereign utility cash transfers or EBITDA recovery coming in under Rs. 270 cr.",
+            "volatility_buffer": "±6.0% to ±8.5% historical 1-day earnings implied move",
+            "technical_anchor": "Structural invalidation upon loss of the multi-week base low."
+          }
+        ]
+      },
+      "one_week_overview": [
+        {
+          "date": "2026-11-22",
+          "dayName": "Sunday (Today)",
+          "items": []
+        },
+        {
+          "date": "2026-11-23",
+          "dayName": "Monday (Tomorrow)",
+          "items": [
+            {
+              "name": "Jupiter Wagons Limited",
+              "tag": "A – Very Positive",
+              "one_line_reason": "Wagon manufacturing expansion with backward integrated braking units."
+            },
+            {
+              "name": "Eicher Motors Limited",
+              "tag": "B – Decent Positive",
+              "one_line_reason": "Royal Enfield domestic resilience coupled with steady VECV margins."
+            },
+            {
+              "name": "Amber Enterprises India Limited",
+              "tag": "B – Decent Positive",
+              "one_line_reason": "Component manufacturing scale in RAC and electronics assemblies."
+            },
+            {
+              "name": "Grasim Industries Limited",
+              "tag": "B – Decent Positive",
+              "one_line_reason": "Chemicals and fiber cash generation supporting decorative paints rollout."
+            },
+            {
+              "name": "J. Kumar Infraprojects Limited",
+              "tag": "B – Decent Positive",
+              "one_line_reason": "Metro and civil infrastructure execution with healthy order-book-to-bill visibility."
+            },
+            {
+              "name": "Nava Limited",
+              "tag": "D – Turnaround · Risky",
+              "one_line_reason": "Plant overhaul completed with sovereign utility debt settlement milestones underway."
+            }
+          ]
+        },
+        {
+          "date": "2026-11-24",
+          "dayName": "Tuesday",
+          "items": [
+            {
+              "name": "Hindustan Aeronautics Limited",
+              "tag": "A – Very Positive",
+              "one_line_reason": "Defence manufacturing leader with Rs. 94,000 cr backlog and sustained execution run-rate."
+            },
+            {
+              "name": "Muthoot Finance Limited",
+              "tag": "A – Very Positive",
+              "one_line_reason": "Gold financing expansion backed by elevated collateral values and steady branch productivity."
+            }
+          ]
+        },
+        {
+          "date": "2026-11-25",
+          "dayName": "Wednesday",
+          "items": [
+            {
+              "name": "Alkem Laboratories Limited",
+              "tag": "B – Decent Positive",
+              "one_line_reason": "Formulations strength in acute therapies backed by stabilizing US price realizations."
+            }
+          ]
+        },
+        {
+          "date": "2026-11-26",
+          "dayName": "Thursday",
+          "items": []
+        },
+        {
+          "date": "2026-11-27",
+          "dayName": "Friday",
+          "items": []
+        },
+        {
+          "date": "2026-11-28",
+          "dayName": "Saturday",
+          "items": []
+        },
+        {
+          "date": "2026-11-29",
+          "dayName": "Sunday",
+          "items": []
+        }
+      ],
+      "changes_since_yesterday": [
+        {
+          "type": "added",
+          "name": "Jupiter Wagons Limited",
+          "note": "Upgraded to Category A on confirmed railway brake integration order and board filing."
+        },
+        {
+          "type": "verified",
+          "name": "Hindustan Aeronautics Limited",
+          "note": "Board meeting date re-confirmed on NSE corporate filing portal for Q2 FY27."
+        },
+        {
+          "type": "pruned",
+          "name": "Hero MotoCorp Limited",
+          "note": "Pruned from active tracking — results already delivered in previous session."
+        }
+      ],
+      "exclusions": [
+        {
+          "name": "Reliance Power Limited",
+          "reason": "Reported net loss in latest quarter (Rs. -97.8 cr). Fails profitability filter for A/B.",
+          "sector": "Power Generation",
+          "mcap_list": "List 2"
+        },
+        {
+          "name": "Vodafone Idea Limited",
+          "reason": "Reported net loss in latest quarter (Rs. -6432 cr). Fails profitability filter for A/B.",
+          "sector": "Telecommunications",
+          "mcap_list": "List 1"
+        },
+        {
+          "name": "Advani Hotels & Resorts (India) Limited",
+          "reason": "Market cap below minimum threshold (< Rs. 5,000 cr; currently Rs. 720 cr).",
+          "sector": "Hotels & Hospitality",
+          "mcap_list": "List 2"
+        },
+        {
+          "name": "Celebrity Fashions Limited",
+          "reason": "Market cap below minimum threshold (< Rs. 5,000 cr; currently Rs. 115 cr).",
+          "sector": "Textiles & Apparel",
+          "mcap_list": "List 2"
+        },
+        {
+          "name": "Hero MotoCorp Limited",
+          "reason": "Already reported on 28 Oct 2026. Pruned from active radar.",
+          "sector": "Automobiles",
+          "mcap_list": "List 1"
+        }
+      ]
+    }
+  },
+  {
+    "run_date": "2026-11-22",
     "run_time_ist": "20:46 IST",
     "run_type": "08:00",
     "data": {

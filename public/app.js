@@ -1410,7 +1410,7 @@ document.addEventListener('DOMContentLoaded', () => {
           });
           if (res.ok) {
             const data = await res.json();
-            if (data && data.ok && data.reply) {
+            if (data && data.ok && data.reply && data.reply.type !== 'error' && (!data.reply.text || !data.reply.text.includes('fetch failed'))) {
               replyHtml = data.reply.html || data.reply.text || '';
               if (mcpConnStatus) mcpConnStatus.textContent = '🟢 Official MCP Server';
             }

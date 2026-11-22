@@ -2,10 +2,16 @@
 import http from 'node:http';
 import fs from 'node:fs';
 import path from 'node:path';
+import dns from 'node:dns';
 import { fileURLToPath } from 'node:url';
 import { RadarEngine } from './src/engine.js';
 import { RadarScheduler } from './src/scheduler.js';
 import { NseMcpClient } from './src/nse_mcp.js';
+
+// Enforce IPv4 lookup to prevent IPv6 connection timeouts against Akamai / NSE CDN
+try {
+  dns.setDefaultResultOrder('ipv4first');
+} catch (e) {}
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
