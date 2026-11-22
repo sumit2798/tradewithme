@@ -233,15 +233,22 @@ export class NseMcpClient {
   extractSymbol(query) {
     const commonWords = new Set([
       'WHAT', 'IS', 'THE', 'OF', 'SHOW', 'ME', 'GET', 'FOR', 'AND', 'IN', 'ON', 'TODAY',
-      'STOCK', 'PRICE', 'LTP', 'VOLUME', 'ACTION', 'ACTIONS', 'DIVIDEND', 'HIGH', 'LOW',
-      '52W', '52-WEEK', 'MOVING', 'AVERAGE', 'SMA', 'MOVERS', 'TOP', 'GAINERS', 'LOSERS',
-      'RADAR', 'MARKET', 'MOOD', 'BREADTH', 'NIFTY', 'SENSEX', 'BANKNIFTY', 'CORPORATE'
+      'STOCK', 'STOCKS', 'PRICE', 'PRICES', 'LTP', 'VOLUME', 'VOLUMES', 'ACTION', 'ACTIONS',
+      'DIVIDEND', 'DIVIDENDS', 'HIGH', 'LOW', '52W', '52-WEEK', 'MOVING', 'AVERAGE', 'SMA',
+      'DMA', 'MOVERS', 'TOP', 'GAINERS', 'LOSERS', 'RADAR', 'MARKET', 'MOOD', 'BREADTH',
+      'NIFTY', 'SENSEX', 'BANKNIFTY', 'CORPORATE', 'ANALYSIS', 'ANALYSE', 'TREND', 'TRENDS',
+      'SPIKE', 'SPIKES', 'TRADES', 'TRADE', 'CHECK', 'TELL', 'ABOUT', 'PLEASE', 'GIVE', 'VIEW',
+      'SNAPSHOT', 'LIST', 'DATA', 'DETAILS', 'INFO', 'INFORMATION', 'FIND', 'RECENT', 'LAST',
+      'FEW', 'COMPARE', 'VERSUS', 'WITH', 'VS', 'TURNOVER', 'MOST', 'ACTIVE', 'VALUE', 'RETURN',
+      'RETURNS', 'PE', 'RATIO', 'VALUATION', 'BOARD', 'MEETING', 'RESULTS', 'DATE'
     ]);
 
-    // Check uppercase words
+    // Check words
     const tokens = query.toUpperCase().replace(/[^A-Z0-9\s]/g, ' ').split(/\s+/).filter(Boolean);
-    for (const t of tokens) {
-      if (!commonWords.has(t) && t.length >= 3 && t.length <= 12) {
+    // Prefer rightmost valid token or known equity ticker
+    for (let i = tokens.length - 1; i >= 0; i--) {
+      const t = tokens[i];
+      if (!commonWords.has(t) && t.length >= 2 && t.length <= 12 && !/^\d+$/.test(t)) {
         return t;
       }
     }
@@ -264,17 +271,32 @@ export class NseMcpClient {
 
       // 2. Top Movers / Gainers / Losers
       if (upper.includes('GAINER') || upper.includes('TOP GAIN')) {
-        const data = await this.callTool('get_top_movers', { date: 'today', n: 5, direction: 'gain' });
+        const data = await this.callTool('get_top_movers', { date: 'today', n: 10, direction: 'gain' });
         return this.formatTopMovers(data, 'gain');
       }
       if (upper.includes('LOSER') || upper.includes('TOP LOSS') || upper.includes('TOP DROP')) {
-        const data = await this.callTool('get_top_movers', { date: 'today', n: 5, direction: 'loss' });
+        const data = await this.callTool('get_top_movers', { date: 'today', n: 10, direction: 'loss' });
         return this.formatTopMovers(data, 'loss');
       }
 
-      // 3. Top Traded / Volume
-      if (upper.includes('VOLUME') || upper.includes('MOST ACTIVE') || upper.includes('TURNOVER') || upper.includes('TOP TRADE')) {
-        const data = await this.callTool('get_top_by_volume', { date: 'today', n: 5, sortBy: 'volume' });
+      // Extract symbol for stock-specific queries
+      const symbol = this.extractSymbol(q);
+
+      // 3. Stock Volume Analysis (if a symbol is explicitly specified)
+      if (symbol && (upper.includes('VOLUME') || upper.includes('TREND') || upper.includes('SPIKE') || upper.includes('ACTIVITY'))) {
+        const data = await this.callTool('get_volume_analysis', { symbol, days: 30 });
+        return this.formatVolumeAnalysis(data, symbol);
+      }
+
+      // 4. High Trades / Highest Turnover (Value)
+      if (upper.includes('TRADE') || upper.includes('TURNOVER') || upper.includes('VALUE') || upper.includes('NIFTY 250') || upper.includes('NIFTY 500')) {
+        const data = await this.callTool('get_top_by_volume', { date: 'today', n: 10, sortBy: 'value' });
+        return this.formatTopValue(data);
+      }
+
+      // 5. Top Volume across all stocks (Quantity)
+      if (upper.includes('VOLUME') || upper.includes('MOST ACTIVE')) {
+        const data = await this.callTool('get_top_by_volume', { date: 'today', n: 10, sortBy: 'volume' });
         return this.formatTopVolume(data);
       }
 
@@ -299,8 +321,7 @@ export class NseMcpClient {
         return this.formatIndexPerformance(data, indexName);
       }
 
-      // Extract symbol for stock-specific queries
-      const symbol = this.extractSymbol(q);
+      // Stock-specific actions
 
       // 6. Corporate actions (Dividends, Splits, Bonus)
       if (symbol && (upper.includes('DIVIDEND') || upper.includes('SPLIT') || upper.includes('BONUS') || upper.includes('CORPORATE') || upper.includes('ACTION'))) {
@@ -319,7 +340,13 @@ export class NseMcpClient {
         return this.formatMovingAverage(symbol, days, val);
       }
 
-      // 8. 52-Week High / Low
+      // 8. Volume Analysis (for a specific stock)
+      if (symbol && (upper.includes('VOLUME') || upper.includes('TREND') || upper.includes('SPIKE') || upper.includes('ACTIVITY'))) {
+        const data = await this.callTool('get_volume_analysis', { symbol, days: 30 });
+        return this.formatVolumeAnalysis(data, symbol);
+      }
+
+      // 9. 52-Week High / Low
       if (symbol && (upper.includes('52') || upper.includes('HIGH') || upper.includes('LOW') || upper.includes('RANGE'))) {
         const data = await this.callTool('get_52_week_high_low', { symbol });
         return this.format52WeekHighLow(data, symbol);
@@ -462,6 +489,104 @@ export class NseMcpClient {
     `;
 
     return { type: 'top_volume', html, raw: data };
+  }
+
+  formatTopValue(data) {
+    if (!data || !data.stocks) return { text: 'No turnover data available.' };
+    const date = data.date || 'Latest';
+    let rows = data.stocks.map((s, idx) => `
+      <tr>
+        <td><strong>#${idx + 1} ${s.symbol}</strong></td>
+        <td>Rs. ${s.close ? s.close.toFixed(2) : '-'}</td>
+        <td class="${s.pct_change >= 0 ? 'green' : 'red'}">${s.pct_change >= 0 ? '+' : ''}${s.pct_change}%</td>
+        <td><strong>Rs. ${(s.traded_value / 10000000).toFixed(2)} Cr</strong></td>
+        <td>${(s.volume / 100000).toFixed(1)} Lakh</td>
+      </tr>
+    `).join('');
+
+    const html = `
+      <div class="mcp-card">
+        <div class="mcp-card-header">
+          <span class="mcp-badge blue">High Trades / Turnover Leaders</span>
+          <span class="mcp-date">${date}</span>
+        </div>
+        <p style="font-size:0.78rem; color:var(--text-muted); margin:0.25rem 0 0.5rem;">
+          Top institutional &amp; retail liquid equities ranked by turnover (traded value in Rs. Cr):
+        </p>
+        <table class="mcp-table">
+          <thead>
+            <tr>
+              <th>Stock</th>
+              <th>Close</th>
+              <th>1D %</th>
+              <th>Turnover</th>
+              <th>Volume</th>
+            </tr>
+          </thead>
+          <tbody>
+            ${rows}
+          </tbody>
+        </table>
+        <div class="mcp-disclaimer">
+          SEBI Disclaimer: Factual NSE Bhavcopy traded value rankings. Educational &amp; research purposes only.
+        </div>
+      </div>
+    `;
+
+    return { type: 'top_value', html, raw: data };
+  }
+
+  formatVolumeAnalysis(data, symbol) {
+    if (!data || !data.symbol) return { text: `No volume analysis available for ${symbol}.` };
+    const days = data.recent_5_days || [];
+    let rows = days.map(d => `
+      <tr>
+        <td>${d.date}</td>
+        <td>Rs. ${d.close}</td>
+        <td class="${d.pct_change >= 0 ? 'green' : 'red'}">${d.pct_change >= 0 ? '+' : ''}${d.pct_change}%</td>
+        <td>${(d.volume / 100000).toFixed(1)} Lakh</td>
+        <td class="${d.vs_avg_pct >= 0 ? 'green' : 'red'}">${d.vs_avg_pct >= 0 ? '+' : ''}${d.vs_avg_pct}%</td>
+      </tr>
+    `).join('');
+
+    const html = `
+      <div class="mcp-card">
+        <div class="mcp-card-header">
+          <span class="mcp-badge purple">${data.symbol} Volume Trend</span>
+          <span class="mcp-date">${data.days_analysed}D Window</span>
+        </div>
+        <div class="mcp-metrics-grid">
+          <div class="mcp-metric-box">
+            <span class="label">Avg Volume</span>
+            <span class="value">${(data.avg_volume / 100000).toFixed(1)}L</span>
+          </div>
+          <div class="mcp-metric-box">
+            <span class="label">Last Volume</span>
+            <span class="value">${(data.last_volume / 100000).toFixed(1)}L</span>
+            <span class="sub ${data.last_vs_avg_pct >= 0 ? 'green' : 'red'}">${data.last_vs_avg_pct}% vs avg</span>
+          </div>
+          <div class="mcp-metric-box">
+            <span class="label">Volume Spikes</span>
+            <span class="value">${data.volume_spike_days}</span>
+            <span class="sub">&gt;2x avg days</span>
+          </div>
+        </div>
+        <strong style="display:block; margin:0.4rem 0 0.2rem; font-size:0.75rem;">Recent 5 Trading Sessions:</strong>
+        <table class="mcp-table">
+          <thead>
+            <tr><th>Date</th><th>Close</th><th>1D %</th><th>Volume</th><th>Vs Avg</th></tr>
+          </thead>
+          <tbody>
+            ${rows}
+          </tbody>
+        </table>
+        <div class="mcp-disclaimer">
+          SEBI Disclaimer: Technical volume deviation analysis from NSE Bhavcopy.
+        </div>
+      </div>
+    `;
+
+    return { type: 'volume_analysis', html, raw: data };
   }
 
   formatTopMovers(data, direction) {

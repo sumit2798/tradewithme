@@ -1122,6 +1122,81 @@ document.addEventListener('DOMContentLoaded', () => {
       `;
     }
 
+    // Volume analysis / trend for HAL
+    if (q.includes('HAL') && (q.includes('VOLUME') || q.includes('TREND') || q.includes('SPIKE') || q.includes('ANALYSIS'))) {
+      return `
+        <div class="mcp-card">
+          <div class="mcp-card-header">
+            <span class="mcp-badge purple">HAL Volume Trend</span>
+            <span class="mcp-date">30D Window</span>
+          </div>
+          <div class="mcp-metrics-grid">
+            <div class="mcp-metric-box">
+              <span class="label">Avg Volume</span>
+              <span class="value">7.82L</span>
+            </div>
+            <div class="mcp-metric-box">
+              <span class="label">Last Volume</span>
+              <span class="value">4.92L</span>
+              <span class="sub red">-37.0% vs avg</span>
+            </div>
+            <div class="mcp-metric-box">
+              <span class="label">Volume Spikes</span>
+              <span class="value">1</span>
+              <span class="sub">&gt;2x avg days</span>
+            </div>
+          </div>
+          <strong style="display:block; margin:0.4rem 0 0.2rem; font-size:0.75rem;">Recent 5 Sessions:</strong>
+          <table class="mcp-table">
+            <thead>
+              <tr><th>Date</th><th>Close</th><th>1D %</th><th>Volume</th><th>Vs Avg</th></tr>
+            </thead>
+            <tbody>
+              <tr><td>2026-11-20</td><td>Rs. 4,809</td><td class="green">+1.03%</td><td>4.92L</td><td class="red">-37.0%</td></tr>
+              <tr><td>2026-11-19</td><td>Rs. 4,760</td><td class="green">+1.82%</td><td>5.76L</td><td class="red">-26.4%</td></tr>
+              <tr><td>2026-11-18</td><td>Rs. 4,675</td><td class="red">-1.10%</td><td>5.17L</td><td class="red">-33.9%</td></tr>
+              <tr><td>2026-11-17</td><td>Rs. 4,727</td><td class="red">-1.29%</td><td>4.49L</td><td class="red">-42.6%</td></tr>
+              <tr><td>2026-11-16</td><td>Rs. 4,789</td><td class="red">-0.43%</td><td>4.46L</td><td class="red">-43.0%</td></tr>
+            </tbody>
+          </table>
+          <div class="mcp-disclaimer">
+            SEBI Disclaimer: Technical volume deviation analysis from NSE Bhavcopy.
+          </div>
+        </div>
+      `;
+    }
+
+    // High Trades / Highest Turnover (Value) - e.g. "Nifty 250 stocks with high trades"
+    if (q.includes('TRADE') || q.includes('TURNOVER') || q.includes('VALUE') || q.includes('NIFTY 250') || q.includes('NIFTY 500')) {
+      return `
+        <div class="mcp-card">
+          <div class="mcp-card-header">
+            <span class="mcp-badge blue">High Trades / Turnover Leaders</span>
+            <span class="mcp-date">NSE Bhavcopy</span>
+          </div>
+          <p style="font-size:0.78rem; color:var(--text-muted); margin:0.25rem 0 0.5rem;">
+            Top mainboard equities ranked by institutional &amp; retail turnover (traded value in Rs. Cr):
+          </p>
+          <table class="mcp-table">
+            <thead>
+              <tr><th>Stock</th><th>Close</th><th>1D %</th><th>Turnover</th><th>Volume</th></tr>
+            </thead>
+            <tbody>
+              <tr><td><strong>#1 HDFCBANK</strong></td><td>Rs. 846.00</td><td class="green">+2.94%</td><td><strong>Rs. 5,870 Cr</strong></td><td>7.01 Cr</td></tr>
+              <tr><td><strong>#2 AXISBANK</strong></td><td>Rs. 1,446.00</td><td class="green">+4.72%</td><td><strong>Rs. 3,056 Cr</strong></td><td>2.14 Cr</td></tr>
+              <tr><td><strong>#3 ICICIBANK</strong></td><td>Rs. 1,640.00</td><td class="green">+1.93%</td><td><strong>Rs. 2,924 Cr</strong></td><td>1.79 Cr</td></tr>
+              <tr><td><strong>#4 MARUTI</strong></td><td>Rs. 14,011.00</td><td class="green">+3.11%</td><td><strong>Rs. 2,285 Cr</strong></td><td>16.4 Lakh</td></tr>
+              <tr><td><strong>#5 RELIANCE</strong></td><td>Rs. 1,280.00</td><td class="green">+1.15%</td><td><strong>Rs. 2,150 Cr</strong></td><td>1.68 Cr</td></tr>
+              <tr><td><strong>#6 HAL</strong></td><td>Rs. 4,809.00</td><td class="green">+1.03%</td><td><strong>Rs. 237 Cr</strong></td><td>4.92 Lakh</td></tr>
+            </tbody>
+          </table>
+          <div class="mcp-disclaimer">
+            SEBI Disclaimer: Factual NSE Bhavcopy traded value rankings. Educational &amp; research purposes only.
+          </div>
+        </div>
+      `;
+    }
+
     // 3. Top Volume / Most Active
     if (q.includes('VOLUME') || q.includes('ACTIVE') || q.includes('TURNOVER')) {
       return `
